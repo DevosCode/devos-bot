@@ -1,0 +1,28 @@
+{
+  "name": "devos-bot",
+  "version": "0.0.1",
+  "description": "Le bot discord du serveur discord Devos Code.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevosCode/devos-bot.git"
+  },
+  "keywords": [
+    "discord",
+    "discord.js",
+    "bot",
+    "devos-code"
+  ],
+  "author": "Wasab, Faustin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DevosCode/devos-bot/issues"
+  },
+  "homepage": "https://github.com/DevosCode/devos-bot#readme",
+  "dependencies": {
+    "discord.js": "^14.9.0"
+  }
+}
