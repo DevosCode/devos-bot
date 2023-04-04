@@ -7,3 +7,11 @@ Le code source du bot discord du serveur discord [Devos Code](https://discord.gg
 Ce projet dispose d'une configuration pour l'ouvrir dans un [devcontainer](https://code.visualstudio.com/docs/devcontainers/containers).
 
 note : `remoteUser` est set en tant que root pour que cela fonctionne avec podman sur linux. C'est la solution la plus simple.
+
+# Todo List
+
+- [ ] Faire la base du code
+  - [ ] Script deploiement commandes
+  - [ ] Handler commandes
+  - [ ] Handler events
+  - [ ] Handler components (?)
