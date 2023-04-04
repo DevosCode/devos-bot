@@ -8,7 +8,7 @@ Ce projet dispose d'une configuration pour l'ouvrir dans un [devcontainer](https
 
 note : `remoteUser` est set en tant que root pour que cela fonctionne avec podman sur linux. C'est la solution la plus simple.
 
-# Todo List
+## Todo List
 
 - [ ] Faire la base du code
   - [ ] Script deploiement commandes
