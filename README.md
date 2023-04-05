@@ -10,7 +10,7 @@ note : `remoteUser` est set en tant que root pour que cela fonctionne avec podma
 
 ## Todo List
 
-- [ ] Faire la base du code
+  - [ ] Faire la base du code
   - [ ] Script deploiement commandes
   - [ ] Handler commandes
   - [ ] Handler events
