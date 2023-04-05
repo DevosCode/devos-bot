@@ -15,6 +15,9 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
+  /**
+   * Un membre
+   */
   Members.init({
     id : {
         type: DataTypes.STRING, 
@@ -41,9 +44,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false, 
       unique: false
     },
+    // la couleur effectif sur l'utilisateur
     color: {
       type: DataTypes.INTEGER,
-      allowNull: false, 
+      allowNull: true, 
       unique: false
     }
   }, {

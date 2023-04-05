@@ -5,7 +5,7 @@ const {
 
 
 module.exports = (sequelize, DataTypes) => {
-  class ColorRoles extends Model {
+  class GuildSettings extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -15,31 +15,35 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  /**
-   * Une couleur/item pour ColorsInventories
-   */
-  ColorRoles.init({
+  GuildSettings.init({
     id : {
         type: DataTypes.INTEGER, 
         allowNull: false, 
         autoIncrement: true,
         primaryKey: true,
     },
+    // le libele decrivant la valeur, ex : STAFF_ROLES_ID ou CHANGE_NICKNAME_ROLE_ID
     label: {
       type: DataTypes.STRING,
       allowNull: false, 
-      unique: true
-    }, 
-    role_id : {
+      unique: false
+    },
+    guild_id: {
       type: DataTypes.STRING,
       allowNull: false, 
-      unique: true
-    }
+      unique: false
+    }, 
+    // la valeur du libele, par exempe 0123456789
+    value: {
+      type: DataTypes.STRING,
+      allowNull: false, 
+      unique: false
+    }, 
   }, {
     sequelize,
-    modelName: 'ColorRoles',
+    modelName: 'GuildSettings',
   });
 
-  // ColorRoles.sync();
-  return ColorRoles;
+  // GuildSettings.sync();
+  return GuildSettings;
 };

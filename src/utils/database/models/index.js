@@ -31,8 +31,15 @@ Object.keys(db).forEach(modelName => {
 });
 
 // 1 ou N 
-db.members.hasMany(db.Tip, {
-  foreignKey: 'UserId',
+db.Items.hasMany(db.ItemsInventories, {
+  foreignKey: 'ItemsId',
   onDelete: 'cascade'
 });
-db.Tip.belongsTo(db.User);
+db.ItemsInventories.belongsTo(db.Items);
+
+// 1 ou N 
+db.Members.hasMany(db.ColorsInventories, {
+  foreignKey: 'ColorId',
+  onDelete: 'cascade'
+});
+db.ColorsInventories.belongsTo(db.Members);

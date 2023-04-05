@@ -5,7 +5,7 @@ const {
 
 
 module.exports = (sequelize, DataTypes) => {
-  class ColorRoles extends Model {
+  class ColorsInventories extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -15,31 +15,18 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  /**
-   * Une couleur/item pour ColorsInventories
-   */
-  ColorRoles.init({
+  ColorsInventories.init({
     id : {
         type: DataTypes.INTEGER, 
         allowNull: false, 
         autoIncrement: true,
         primaryKey: true,
-    },
-    label: {
-      type: DataTypes.STRING,
-      allowNull: false, 
-      unique: true
-    }, 
-    role_id : {
-      type: DataTypes.STRING,
-      allowNull: false, 
-      unique: true
     }
   }, {
     sequelize,
-    modelName: 'ColorRoles',
+    modelName: 'ColorsInventories',
   });
 
-  // ColorRoles.sync();
-  return ColorRoles;
+  // ColorsInventories.sync();
+  return ColorsInventories;
 };
