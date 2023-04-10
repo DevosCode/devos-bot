@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setDescription("ceci est une description"),

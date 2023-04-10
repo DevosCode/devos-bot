@@ -20,19 +20,23 @@ console.table(commandFiles);
 
 for (const file of commandFiles) {
 	const command = require(file);
+	const commandName = file.split('/').pop().split('.').shift();
+	command.data.setName(commandName);
+
 	commands.push(command.data.toJSON());
 }
 
 const rest = new REST({ version: '10' }).setToken(TOKEN);
 (async () => {
 	try {
-		console.log(`[DEVOS-BOT] Demarrage du relancement de ${commands.length} commandes`);
+		console.log(`[DEVOS-BOT] Demarrage du déploiement de ${commands.length} commandes`);
 		const data = await rest.put(
 			Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID),
 			{ body: commands },
 		);
-		console.log(`[DEVOS-BOT] Vous avez relancer ${data.length} commandes`);
+		console.log(`[DEVOS-BOT] Vous avez déployé ${data.length} commandes`);
 	} catch (error) {
+		console.error('[DEVOS-BOT] Une erreur est survenue en déployant les commandes :');
 		console.error(error);
 	}
 })();
