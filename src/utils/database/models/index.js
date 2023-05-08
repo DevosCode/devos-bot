@@ -5,10 +5,12 @@ const Sequelize = require('sequelize');
 const process = require('process');
 const basename = path.basename(__filename);
 const db = {};
-require('dotenv').config()
 
 // console.log(`${process.env.DIALECT}://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE_NAME}`)
-const sequelize = new Sequelize(`${process.env.DIALECT}://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE_NAME}`)
+const sequelize = new Sequelize(`${process.env.DIALECT}://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE_NAME}`
+  ,{
+  logging: false // si les tables ne sont pas generer vous pouvez reactiver les logs pour voir la trace 
+})
 fs
   .readdirSync(__dirname)
   .filter(file => {
