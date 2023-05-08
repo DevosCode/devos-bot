@@ -15,6 +15,9 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
+  /*
+    L'inventaire des items
+   */
   ItemsInventories.init({
     id : {
         type: DataTypes.INTEGER, 

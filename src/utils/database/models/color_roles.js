@@ -15,9 +15,8 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  /**
-   * Une couleur/item pour ColorsInventories
-   */
+  
+  // Une couleur/item pour ColorsInventories
   ColorRoles.init({
     id : {
         type: DataTypes.INTEGER, 

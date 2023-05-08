@@ -15,6 +15,9 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
+  /*
+    Les parametres de guild
+  */
   GuildSettings.init({
     id : {
         type: DataTypes.INTEGER, 
