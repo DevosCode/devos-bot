@@ -7,6 +7,7 @@ const logger = winston.createLogger({
     winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
     winston.format.printf(({ timestamp, level, message }) => {
       let logColor;
+      let botName = clc.magenta("[DEVOS-BOT]");
 
       // Définir la couleur en fonction du niveau de log
       switch (level) {
@@ -26,7 +27,7 @@ const logger = winston.createLogger({
       // Formater le message avec la couleur appropriée
       const formattedMessage = logColor(message);
 
-      return `${timestamp} ${level}: ${formattedMessage}`;
+      return `${botName} - ${timestamp} ${level}: ${formattedMessage}`;
     })
   ),
   transports: [
@@ -34,4 +35,4 @@ const logger = winston.createLogger({
   ]
 });
 
-module.exports = logger;
+module.exports = {logger};
