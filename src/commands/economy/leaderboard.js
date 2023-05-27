@@ -10,6 +10,11 @@ module.exports = {
       subcommand
         .setName('level')
         .setDescription('Affiche le classement des niveaux.')
+    )
+    .addSubcommand(subcommand =>
+      subcommand
+        .setName('credit')
+        .setDescription('Affiche le classement des credits.')
     ),
   /**
    * @param {Object} options
@@ -18,14 +23,14 @@ module.exports = {
    */
   async run({ client, interaction }) {
     const leadeboard_type = interaction.options.getSubcommand();
-
+    let usersDB, embed;
     if (leadeboard_type == 'level') {
-      const usersDB = await client.db.Members.findAll({
+      usersDB = await client.db.Members.findAll({
         order: [['experience', 'DESC']],
         limit: 10
       });
 
-      const embed = new EmbedBuilder()
+      embed = new EmbedBuilder()
         .setColor(client.config.colors.main)
         .setAuthor({ name: interaction.guild.name, iconURL: interaction.guild.iconURL() })
         .setTitle('Level Leaderboard')
@@ -36,7 +41,26 @@ module.exports = {
         embed.addFields({ name: `${member.user.username}#${member.user.discriminator}`, value: `Niveau : ${userDB.level}, Experience : ${userDB.experience}` });
       });
 
-      interaction.reply({ embeds: [embed] });
     }
+    
+    if (leadeboard_type == 'credit') {
+      usersDB = await client.db.Members.findAll({
+        order: [['credits', 'DESC']],
+        limit: 10
+      });
+
+      embed = new EmbedBuilder()
+        .setColor(client.config.colors.main)
+        .setAuthor({ name: interaction.guild.name, iconURL: interaction.guild.iconURL() })
+        .setTitle('Crédits Leaderboard')
+        .setFooter({ iconURL: client.user.displayAvatarURL(), text: client.config.footer });
+
+      await usersDB.map(async userDB => {
+        const member = await interaction.guild.members.fetch(userDB.id);
+        embed.addFields({ name: `${member.user.username}#${member.user.discriminator}`, value: `Crédits : ${userDB.credits}` });
+      });
+
+    }
+    interaction.reply({ embeds: [embed] });
   }
 };

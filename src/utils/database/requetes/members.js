@@ -1,4 +1,5 @@
 const {db} = require('../models');
+const {logger} = require('../../logger');
 const { GuildMember } = require('discord.js');
 
 module.exports = {
@@ -30,7 +31,7 @@ module.exports = {
                 return {"member" : newMember, "create" : true};
             }
         } catch (error) {
-            console.error('Erreur lors de la recherche/création du membre :', error);
+            logger.error('Erreur lors de la recherche/création du membre :'+ error);
             throw error;
         }
     },

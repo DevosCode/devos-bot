@@ -12,12 +12,10 @@ module.exports = (client, interaction) => {
 
     const command = client.commands[interaction.commandName];
     if (!command) return error(interaction, 'Cette commande n\'existe pas ou n\'existe plus.');
-    console.log("--com", command)
     if (command.permissions) {
       const roles = [];
 
       command.permissions.forEach(permission => roles.push(permission.id));
-      console.log("--role", roles)
       if (!interaction.member.roles.cache.has(roles)) return error(interaction, 'Vous n\'avez pas la permission de faire cette commande.', { ephemeral: true });
     }
 

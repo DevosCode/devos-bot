@@ -24,13 +24,14 @@ module.exports = {
 
     if (!member) return error(interaction, 'Je ne trouve pas ce membre sur le serveur.');
     if (member.user.bot) return error(interaction, 'Vous ne pouvez pas donner des crédits à un bot.');
+    if (member.id == interaction.member.id) return error(interaction, 'Vous ne pouvez pas vous auto rep.');
 
-    const userDB = (await findOrCreateMember(interaction.member)).member
+    const userDB = (await findOrCreateMember(member)).member
 
-    userDB.credits = member.roles.cache.has(client.config.booster_role) ? 2 : 1;
-  
+    const credits = member.roles.cache.has(client.config.booster_role) ? 2 : 1;
+    userDB.credits += credits;
     await userDB.save();
 
-    success(interaction, `J'ai donné \`${userDB.credits}\` credit${userDB.credits > 1 ? 's' : ''} à ${member.toString()}. Merci à lui pour sa participation.`);
+    await success(interaction, `J'ai donné \`${credits}\` credit${userDB.credits > 1 ? 's' : ''} à ${member.toString()}. Merci à lui pour sa participation.`);
   }
 };
