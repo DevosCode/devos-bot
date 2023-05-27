@@ -1,7 +1,7 @@
 const { Client, GatewayIntentBits } = require('discord.js');
 const { lstatSync, readdirSync } = require('fs');
 const { join } = require('path');
-const { sequelize } = require('./../utils/database/models/index.js');
+const { sequelize, db } = require('./../utils/database/models/index.js');
 const { logger } = require("./../utils/logger");
 
 class CustomClient extends Client {
@@ -12,8 +12,8 @@ class CustomClient extends Client {
       // intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_BANS, Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS, Intents.FLAGS.GUILD_INTEGRATIONS, Intents.FLAGS.GUILD_WEBHOOKS, Intents.FLAGS.GUILD_INVITES, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS, Intents.FLAGS.GUILD_MESSAGE_TYPING, Intents.FLAGS.DIRECT_MESSAGES, Intents.FLAGS.DIRECT_MESSAGE_REACTIONS, Intents.FLAGS.DIRECT_MESSAGE_TYPING]
       intents: 3276799 // all intents     
     });
-
-    this.sequelize = sequelize;
+    // this.sequelize = sequelize;
+    this.db = db;
     this.commands = {};
     this.buttons = {};
     this.selectmenus = {};
@@ -55,7 +55,7 @@ class CustomClient extends Client {
             const command = require(join(categoryDir, file));
             const commandName = file.split('.')[0];
             this.slashs.push(command.data.toJSON());
-            this.commands[commandName] = Object.assign(command, { category: category.name, name: commandName });
+            this.commands[commandName] = Object.assign(command, { category: category.name, name: commandName, permissions: command.permissions || null });
           }
         });
       }
@@ -81,23 +81,25 @@ class CustomClient extends Client {
     return 1;
   }
 
-  // loadButtons() {
-  //   readdirSync('./buttons').forEach(file => {
-  //     const button = new (require(`../buttons/${file}`))(this);
-  //     this.buttons[button.name] = button;
-  //   });
+  loadButtons() {
+    // const buttonPath = join(__dirname, '../buttons');
+    // readdirSync(buttonPath).forEach(file => {
+    //   const button = require(join(buttonPath, file));
+    //   const buttonName = file.split('.')[0];
+    //   this.buttons[buttonName] = Object.assign(button, { name: buttonName });
+    // });
+    return 1;
+  }
 
-  //   return 1;
-  // }
-
-  // loadSelectMenus() {
-  //   readdirSync('./selectmenus').forEach(file => {
-  //     const selectmenu = require(`../selectmenus/${file}`);
-  //     const selectmenuName = file.split('.')[0];
-  //     this.selectmenus[selectmenuName] = Object.assign(selectmenu, { name: selectmenuName });
-  //   });
-  //   return 1;
-  // }
+  loadSelectMenus() {
+    const selectmenusPath = join(__dirname, '../selectmenus');
+    readdirSync(selectmenusPath).forEach(file => {
+      const selectmenu = require(join(selectmenusPath, file));
+      const selectmenuName = file.split('.')[0];
+      this.selectmenus[selectmenuName] = Object.assign(selectmenu, { name: selectmenuName });
+    });
+    return 1;
+  }
 
 }
 

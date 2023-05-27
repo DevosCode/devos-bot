@@ -1,5 +1,4 @@
 module.exports = async (client, message) => {
-  console.log("--message")
   // if (!message.author.bot) {
 
   //   const usersDB = await client.pool.query(`SELECT * FROM users WHERE id = ${message.author.id}`);
