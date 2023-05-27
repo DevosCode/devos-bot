@@ -1,7 +1,7 @@
 const { Client, GatewayIntentBits } = require('discord.js');
 const { lstatSync, readdirSync } = require('fs');
 const { join } = require('path');
-const { sequelize , db} = require('./../utils/database/models/index.js');
+const { sequelize, db } = require('./../utils/database/models/index.js');
 const { logger } = require("./../utils/logger");
 
 class CustomClient extends Client {
@@ -55,7 +55,7 @@ class CustomClient extends Client {
             const command = require(join(categoryDir, file));
             const commandName = file.split('.')[0];
             this.slashs.push(command.data.toJSON());
-            this.commands[commandName] = Object.assign(command, { category: category.name, name: commandName, permissions : command.permissions || null });
+            this.commands[commandName] = Object.assign(command, { category: category.name, name: commandName, permissions: command.permissions || null });
           }
         });
       }
@@ -90,14 +90,15 @@ class CustomClient extends Client {
   //   return 1;
   // }
 
-  // loadSelectMenus() {
-  //   readdirSync('./selectmenus').forEach(file => {
-  //     const selectmenu = require(`../selectmenus/${file}`);
-  //     const selectmenuName = file.split('.')[0];
-  //     this.selectmenus[selectmenuName] = Object.assign(selectmenu, { name: selectmenuName });
-  //   });
-  //   return 1;
-  // }
+  loadSelectMenus() {
+    const selectmenusPath = join(__dirname, '../selectmenus');
+    readdirSync(selectmenusPath).forEach(file => {
+      const selectmenu = require(join(selectmenusPath, file));
+      const selectmenuName = file.split('.')[0];
+      this.selectmenus[selectmenuName] = Object.assign(selectmenu, { name: selectmenuName });
+    });
+    return 1;
+  }
 
 }
 

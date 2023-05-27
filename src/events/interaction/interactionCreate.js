@@ -23,11 +23,11 @@ module.exports = (client, interaction) => {
     client.log.info(`${interaction.user.tag} à fait la commande ${interaction.commandName}`);
   }
 
-  // if (interaction.isSelectMenu()) {
-  //   const selectmenu = client.selectmenus[interaction.customId.split('.')[0]];
+  if (interaction.isSelectMenu()) {
+    const selectmenu = client.selectmenus[interaction.customId.split('.')[0]];
     
-  //   if (!selectmenu) error(interaction, 'Ce select menu n\'existe pas ou n\'existe plus.')
+    if (!selectmenu) error(interaction, 'Ce select menu n\'existe pas ou n\'existe plus.')
     
-  //   selectmenu.run({ client, interaction });
-  // }
+    selectmenu.run({ client, interaction });
+  }
 };
