@@ -55,7 +55,7 @@ class CustomClient extends Client {
             const command = require(join(categoryDir, file));
             const commandName = file.split('.')[0];
             this.slashs.push(command.data.toJSON());
-            this.commands[commandName] = Object.assign(command, { category: category.name, name: commandName });
+            this.commands[commandName] = Object.assign(command, { category: category.name, name: commandName, permissions : command.permissions || null });
           }
         });
       }

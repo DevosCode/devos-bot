@@ -1,13 +1,12 @@
-const { Collection, Interaction } = require('discord.js');
+const { Collection, EmbedBuilder } = require('discord.js');
 module.exports = {
     success : async function (interaction, args, { replied = true, ephemeral = false } = {}) {
         const message = {
-            embeds: [{
-                color: interaction.config.colors.green,
-                title: 'Succès',
-                description: `${interaction.client.config.emojis.success} \`-\` ${args}`,
-                footer: { icon_url: interaction.client.user.displayAvatarURL(), text: interaction.client.config.footer }
-            }],
+            embeds: [new EmbedBuilder()
+            .setColor(interaction.client.config.colors.green)
+            .setTitle('Succès')
+            .setDescription(`${interaction.client.config.emojis.success} \`-\` ${args}`)
+            .setFooter({ iconURL: interaction.client.user.displayAvatarURL(), text: interaction.client.config.footer })],
             ephemeral
         };
 
@@ -19,12 +18,11 @@ module.exports = {
     },
     error : async function (interaction, args, { replied = true, ephemeral = false } = {}) {
         const message = {
-            embeds: [{
-                color: interaction.client.config.colors.red,
-                title: 'Erreur',
-                description: `${interaction.client.config.emojis.error} \`-\` ${args}`,
-                footer: { icon_url: interaction.client.user.displayAvatarURL(), text: interaction.client.config.footer }
-            }],
+            embeds:  [new EmbedBuilder()
+            .setColor(interaction.client.config.colors.red)
+            .setTitle('Erreur')
+            .setDescription(`${interaction.client.config.emojis.error} \`-\` ${args}`)
+            .setFooter({ iconURL: interaction.client.user.displayAvatarURL(), text: interaction.client.config.footer })],
             ephemeral
         };
 

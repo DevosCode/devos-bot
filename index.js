@@ -8,4 +8,3 @@ client.runDatabase();
 client.login(process.env.TOKEN);
 client.loadEvents();
 client.loadCommands();
-console.log(client.slashs)
