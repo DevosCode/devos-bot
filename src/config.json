@@ -1,0 +1,33 @@
+{
+  "ad_role": "947985140003528705",
+  "autorole_roles": ["759433065457123328", "759701153742454794", "930136305306832957", "759701287255932938"],
+  "booster_role": "774657788223029280",
+  "disboard_id": "302050872383242240",
+  "devoscode_id" : "759432409400999967",
+  "devoscode_test_id" : "1095005516050223278",
+  "colors": {
+    "blue": "#3e70dd",
+    "green": "#51b581",
+    "main": "#0fcec4",
+    "red": "#ed4245"
+  },
+  "emojis": {
+    "administration": "<:administration:947422837742895164>",
+    "economy": "<:economy:947422888896630794>",
+    "error": ":x:",
+    "success": ":white_check_mark:",
+    "utility": "<:utility:947422908920254465>",
+    "xpbar_empty": "<:xpbar_empty:947467673439195186>",
+    "xpbar_full": "<:xpbar_full:947467716766335016>",
+    "xpbar_left": "<:xpbar_left:947467373655511050>",
+    "xpbar_right": "<:xpbar_right:947467751025430571>"
+  },
+  "footer": "Devos Bot - Official Bot of Devos Code",
+  "presence": {
+    "type": "online",
+    "status": "/help | Bot of Devos Code"
+  },
+  "store": [
+    { "credits": 10, "item": "ad_role", "description": "Permet de faire la pub que vous voulez dans le salon <#947985768142503987> toutes les 6 heures." }
+  ]
+}

@@ -1,12 +1,14 @@
 const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setDescription("ceci est une description"),
-    /**
-     * @param {import('discord.js').CommandInteraction} interaction
-     */
-    execute(interaction) {
+    // data: new SlashCommandBuilder()
+    //     .setDescription("ceci est une description"),
+    // /**
+    //  * @param {import('discord.js').CommandInteraction} interaction
+    //  */
+    description: 'Affiche les informations du server.',
+    type: 'CHAT_INPUT',
+    run({ client, interaction }) {
         var serverIcon = interaction.guild.iconURL({ dynamic: true });
         let embedserverinfo = new Discord.EmbedBuilder()
             .setColor('#3371FF')
