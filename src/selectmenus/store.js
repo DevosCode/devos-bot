@@ -20,7 +20,7 @@ module.exports = {
     if (userDB.credits < item.credits) return error(interaction,`${interaction.user.toString()}, Il vous manque ${item.credits - userDB.credits} credits pour acheter ce produit.`);
 
     if (item.item == 'ad_role') {
-      if (interaction.member.roles.cache.has(client.config.ad_role)) return interaction.error('Vous avez déjà achetr ce produit.');
+      if (interaction.member.roles.cache.has(client.config.ad_role)) return error(interaction, 'Vous avez déjà acheter ce produit.');
       interaction.member.roles.add(client.config.ad_role);
       await client.pool.query(`UPDATE users SET credits =  ${userDB.credits - 10} WHERE id = ${interaction.user.id}`);
       success(interaction, 'Vous avez correctement acheter ce produit. Je vous ai débité 10 credits.');
