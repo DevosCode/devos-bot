@@ -42,7 +42,7 @@ module.exports = {
 
                         ➜ ${interaction.guild.members.cache.size} Total
 
-                    Merci de nous avoir rejoins
+                    Merci de nous avoir rejoins.
                     `,
                 inline: false,
             })

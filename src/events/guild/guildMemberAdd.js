@@ -1,4 +1,11 @@
+const {findOrCreateMember} = require("./../../utils/database/requetes/members");
+const { GuildMember } = require('discord.js');
+/**
+ * 
+ * @param {*} client 
+ * @param {GuildMember} member 
+ */
 module.exports = async (client, member) => {
-  member.roles.add(client.config.autorole_roles, 'Ajout des autoroles.');
-  // await client.pool.query(`INSERT INTO users(id, credits, experience, level) VALUES (${member.id}, 0, 0, 1)`);
+  await member.roles.add(client.config.autorole_roles, 'Ajout des autoroles.');
+  await findOrCreateMember(member);
 };

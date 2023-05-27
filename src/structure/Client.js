@@ -1,7 +1,7 @@
 const { Client, GatewayIntentBits } = require('discord.js');
 const { lstatSync, readdirSync } = require('fs');
 const { join } = require('path');
-const { sequelize } = require('./../utils/database/models/index.js');
+const { sequelize , db} = require('./../utils/database/models/index.js');
 const { logger } = require("./../utils/logger");
 
 class CustomClient extends Client {
@@ -12,8 +12,8 @@ class CustomClient extends Client {
       // intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_BANS, Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS, Intents.FLAGS.GUILD_INTEGRATIONS, Intents.FLAGS.GUILD_WEBHOOKS, Intents.FLAGS.GUILD_INVITES, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS, Intents.FLAGS.GUILD_MESSAGE_TYPING, Intents.FLAGS.DIRECT_MESSAGES, Intents.FLAGS.DIRECT_MESSAGE_REACTIONS, Intents.FLAGS.DIRECT_MESSAGE_TYPING]
       intents: 3276799 // all intents     
     });
-
-    this.sequelize = sequelize;
+    // this.sequelize = sequelize;
+    this.db = db;
     this.commands = {};
     this.buttons = {};
     this.selectmenus = {};
