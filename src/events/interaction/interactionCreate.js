@@ -1,5 +1,12 @@
 const {error}  = require("./../../utils/interaction-utils");
+const { CommandInteraction } = require('discord.js');
+const CustomClient = require("./../../structure/Client");
 
+/**
+ * @param {Object} options
+ * @param {CustomClient} options.client - Le client 
+ * @param {CommandInteraction} options.interaction - L'interaction de commande
+ */
 module.exports = (client, interaction) => {
   if (interaction.isCommand()) {
 

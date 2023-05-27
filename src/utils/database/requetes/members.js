@@ -13,7 +13,7 @@ module.exports = {
 
             if (dbMember) {
                 // Le membre existe déjà
-                return dbMember;
+                return {"member" : dbMember, "create" : false};
             } else {
                 // Le membre n'existe pas, on le crée
                 const newMember = await db.Members.create({
@@ -27,7 +27,7 @@ module.exports = {
 
                 // Enregistrer le membre dans la base de données
                 await newMember.save();
-                return newMember;
+                return {"member" : newMember, "create" : true};
             }
         } catch (error) {
             console.error('Erreur lors de la recherche/création du membre :', error);

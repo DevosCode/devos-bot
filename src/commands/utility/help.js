@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
-const {error}  = require("../../utils/interaction-utils");
+const { error } = require("../../utils/interaction-utils");
+const CustomClient = require("./../../structure/Client");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -10,21 +11,26 @@ module.exports = {
         .setDescription('Informations sur une commande.')
         .setRequired(false)
     ),
+  /**
+   * @param {Object} options
+   * @param {CustomClient} options.client - Le client 
+   * @param {CommandInteraction} options.interaction - L'interaction de commande
+   */
   async run({ client, interaction }) {
     const commandName = interaction.options.getString('commande');
     let embed;
     if (!commandName) {
       embed = new EmbedBuilder()
-      .setColor(client.config.colors.main)
-      .setTitle('Liste des commandes')
-      .setDescription('Toutes les commandes ci-dessous s\'effectuent en slash commande (`/`).')
-      .addFields(
-        // { name: `${client.config.emojis.administration} Administration`, value: Object.values(client.commands).filter(c => c.category == 'administration').map(cmd => `\`${cmd.name}\``).join(', ') },
-        { name: `${client.config.emojis.economy} Economie`, value: Object.values(client.commands).filter(c => c.category == 'economy').map(cmd => `\`${cmd.name}\``).join(', ') },
-        { name: `${client.config.emojis.utility} Utilitaire`, value: Object.values(client.commands).filter(c => c.category == 'utility').map(cmd => `\`${cmd.name}\``).join(', ') }
-      )
-      .setFooter({ iconURL: client.user.displayAvatarURL(), text: client.config.footer });
-    
+        .setColor(client.config.colors.main)
+        .setTitle('Liste des commandes')
+        .setDescription('Toutes les commandes ci-dessous s\'effectuent en slash commande (`/`).')
+        .addFields(
+          // { name: `${client.config.emojis.administration} Administration`, value: Object.values(client.commands).filter(c => c.category == 'administration').map(cmd => `\`${cmd.name}\``).join(', ') },
+          { name: `${client.config.emojis.economy} Economie`, value: Object.values(client.commands).filter(c => c.category == 'economy').map(cmd => `\`${cmd.name}\``).join(', ') },
+          { name: `${client.config.emojis.utility} Utilitaire`, value: Object.values(client.commands).filter(c => c.category == 'utility').map(cmd => `\`${cmd.name}\``).join(', ') }
+        )
+        .setFooter({ iconURL: client.user.displayAvatarURL(), text: client.config.footer });
+
       // interaction.reply({
       //   embeds: [{
       //     color: client.config.colors.main,
