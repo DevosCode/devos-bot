@@ -1,9 +1,10 @@
+const {success, error}  = require("./../../utils/interaction-utils");
+
 module.exports = (client, interaction) => {
   if (interaction.isCommand()) {
 
     const command = client.commands[interaction.commandName];
-    console.log(client.commands)
-    if (!command) return interaction.error('Cette commande n\'existe pas ou n\'existe plus.');
+    if (!command) return error('Cette commande n\'existe pas ou n\'existe plus.');
     if (command.permissions) {
       const roles = [];
 
@@ -13,13 +14,13 @@ module.exports = (client, interaction) => {
     }
 
     command.run({ client, interaction });
-    console.log(`${interaction.user.tag} à fait la commande ${interaction.commandName}`);
+    client.log.info(`${interaction.user.tag} à fait la commande ${interaction.commandName}`);
   }
 
   // if (interaction.isSelectMenu()) {
   //   const selectmenu = client.selectmenus[interaction.customId.split('.')[0]];
     
-  //   if (!selectmenu) interaction.error('Ce select menu n\'existe pas ou n\'existe plus.')
+  //   if (!selectmenu) error('Ce select menu n\'existe pas ou n\'existe plus.')
     
   //   selectmenu.run({ client, interaction });
   // }

@@ -1,4 +1,3 @@
-
 const Client = require('./src/structure/Client');
 const config = require('./src/config.json');
 const dotenv = require("dotenv");

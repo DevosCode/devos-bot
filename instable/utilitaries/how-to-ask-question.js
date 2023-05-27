@@ -1,9 +1,12 @@
 module.exports = {
-  description: 'Comment bien poser une question.',
-  type: 'CHAT_INPUT',
-  options: [
-    { name: 'pour', description: 'Membre qui ne sait pas poser son problème.', type: 'USER', required: true }
-  ],
+  data: new SlashCommandBuilder()
+    .setName('how-to-ask-question')
+    .setDescription('Comment bien poser une question.')
+    .addUserOption(option =>
+      option.setName('pour')
+        .setDescription('Membre qui ne sait pas poser son problème.')
+        .setRequired(true)
+    ),
   async run({ client, interaction }) {
     const member = interaction.options.getMember('pour');
 
