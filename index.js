@@ -9,3 +9,4 @@ client.login(process.env.TOKEN);
 client.loadEvents();
 client.loadCommands();
 client.loadSelectMenus();
+client.loadButtons();

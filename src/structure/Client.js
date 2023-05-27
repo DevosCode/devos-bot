@@ -81,14 +81,15 @@ class CustomClient extends Client {
     return 1;
   }
 
-  // loadButtons() {
-  //   readdirSync('./buttons').forEach(file => {
-  //     const button = new (require(`../buttons/${file}`))(this);
-  //     this.buttons[button.name] = button;
-  //   });
-
-  //   return 1;
-  // }
+  loadButtons() {
+    // const buttonPath = join(__dirname, '../buttons');
+    // readdirSync(buttonPath).forEach(file => {
+    //   const button = require(join(buttonPath, file));
+    //   const buttonName = file.split('.')[0];
+    //   this.buttons[buttonName] = Object.assign(button, { name: buttonName });
+    // });
+    return 1;
+  }
 
   loadSelectMenus() {
     const selectmenusPath = join(__dirname, '../selectmenus');
