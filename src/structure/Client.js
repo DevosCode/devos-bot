@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits } = require('discord.js');
+const { Client } = require('discord.js');
 const { lstatSync, readdirSync } = require('fs');
 const { join } = require('path');
 const { sequelize, db } = require('./../utils/database/models/index.js');
