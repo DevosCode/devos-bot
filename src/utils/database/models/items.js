@@ -30,9 +30,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true
     },
-    guild_id: {
+    guildId: {
       type: DataTypes.STRING,
       allowNull: false, 
+    },
+    prix : {
+      type : DataTypes.INTEGER,
+      allowNull: false,
     }
   }, {
     sequelize,

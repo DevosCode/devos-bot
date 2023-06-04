@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   /*
-    L'inventaire des items
+    L'inventaire des items d'un utilisateur
    */
   ItemsInventories.init({
     id : {
@@ -24,12 +24,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false, 
         autoIncrement: true,
         primaryKey: true,
-    },
-    label: {
-      type: DataTypes.STRING,
-      allowNull: false, 
-      unique: true
-    }    
+    },  
   }, {
     sequelize,
     modelName: 'ItemsInventories',

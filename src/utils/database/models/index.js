@@ -29,18 +29,11 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
-// 1 ou N 
-db.Items.hasMany(db.ItemsInventories, {
-  foreignKey: 'ItemsId',
-  onDelete: 'cascade'
-});
-db.ItemsInventories.belongsTo(db.Items);
-
-// 1 ou N 
-db.Members.hasMany(db.ColorsInventories, {
-  foreignKey: 'ColorId',
-  onDelete: 'cascade'
-});
-db.ColorsInventories.belongsTo(db.Members);
+// N - N
+db.Items.belongsToMany(db.Members, { through: db.ItemsInventories });
+db.Members.belongsToMany(db.Items, { through: db.ItemsInventories });
+// N - N
+db.ColorRoles.belongsToMany(db.Members, { through: db.ColorsInventories });
+db.Members.belongsToMany(db.ColorRoles, { through: db.ColorsInventories });
 
 module.exports = { sequelize, db };

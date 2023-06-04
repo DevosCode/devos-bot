@@ -13,15 +13,17 @@ module.exports = {
    * @param {CommandInteraction} options.interaction - L'interaction de commande
    */
   async run({client, interaction}) {
-    const colorRoles = await client.db.ColorRoles.findAll({ where: { user_id: interaction.user.id } });
+    const colorRoles = await client.db.ColorsInventories.findAll({ where: { MemberId: interaction.user.id } });
 
+    console.log(colorRoles);
+    return 
     if (!colorRoles.length) return interaction.reply(`${interaction.user.toString()}, Vous n'avez acheté aucun rôle de couleur.`);
 
     const options = [];
     const selectMenu = new StringSelectMenuBuilder()
       .setCustomId(`switch-color-roles.${interaction.user.id}`)
-      .setOptions(options)
       .setPlaceholder("Choisissez une couleur");
+      // .setOptions(options)
 
 
     for (const colorRole of colorRoles) {

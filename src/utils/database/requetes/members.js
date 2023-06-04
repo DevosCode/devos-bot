@@ -8,9 +8,15 @@ module.exports = {
      * @param {GuildMember} member 
      * @returns 
      */
-    async findOrCreateMember(member) {
+    async findOrCreateMember(member, guildId = null) {
+        let dbMember;
+        console.log("---------g-", guildId)
         try {
-            const dbMember = await db.Members.findOne({ where: { id: member.id, guild_id: member.guild.id } });
+            if (guildId ){
+                dbMember = await db.Members.findOne({ where: { id: member.id, guild_id: guildId } });
+            }else{
+                dbMember = await db.Members.findOne({ where: { id: member.id, guild_id: member.guild.id } });
+            }
 
             if (dbMember) {
                 // Le membre existe déjà

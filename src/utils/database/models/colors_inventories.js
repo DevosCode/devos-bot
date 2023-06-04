@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   /*
-    L'inventaire des couleurs
+    L'inventaire des couleurs d'un utilisateur
    */
   ColorsInventories.init({
     id : {

@@ -23,7 +23,7 @@ module.exports = {
    * @param {CustomClient} options.client - Le client
    * @param {CommandInteraction} options.interaction - L'interaction de commande
    */
-  async run(interaction) {
+  async run({interaction}) {
     const member = interaction.options.getUser('membre');
     const credits = interaction.options.getInteger('credits');
 
@@ -31,7 +31,7 @@ module.exports = {
     if (member.bot) return error(interaction, "Vous ne pouvez pas donner des crédits à un bot.");
     if (credits < 0) return error(interaction, "Vous ne pouvez pas affecter des crédits négatifs à un membre.");
 
-    let res = await findOrCreateMember(member);
+    let res = await findOrCreateMember(member, interaction.member.guild.id);
     res.member.credits = credits;
     res.member.save();
 
