@@ -20,8 +20,6 @@ readdirSync(docsPath).forEach(file => {
 // IF MORE ARE NEEDED IN THE FUTURE, USE INTERACTIONS AUTOCOMPLETE INSTEAD.
 const documentationChoices = Object.keys(documentations).map(d => { return { name: d, value: d } });
 
-console.log(documentationChoices);
-
 // command
 module.exports = {
     data: new SlashCommandBuilder()
@@ -78,10 +76,7 @@ module.exports = {
             const requestJson = await res.json();
 
             // format the results
-            const embed = {
-                ...await getEmbed(requestJson, interaction)
-            }
-            console.log(embed)
+            const embed =  await getEmbed(requestJson, interaction) ;
 
             await interaction.editReply({ embeds: [embed] });
         } catch(err) {

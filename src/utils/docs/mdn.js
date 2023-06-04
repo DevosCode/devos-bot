@@ -18,10 +18,9 @@ module.exports = {
         const embed = new EmbedBuilder()
             .setAuthor({name : title, iconURL:'https://developer.mozilla.org/apple-touch-icon.6803c6f0.png', url: 'https://developer.mozilla.org/apple-touch-icon.6803c6f0.png'})
             .setURL(`https://developer.mozilla.org${mdn_url}`)
-            .setDescription("test")
+            .setDescription(`${summary}\n\n[lire plus](https://developer.mozilla.org${mdn_url})\n`)
             .setColor(interaction.client.config.colors.green)
             .setFooter({text : 'from MDN Web Docs'});
-            // .setDescription(`${summary}\n\n[lire plus](https://developer.mozilla.org${mdn_url})\n`)
             
         
         // scrapping
