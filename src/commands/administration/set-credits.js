@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder , PermissionFlagsBits} = require('discord.js');
 const {findOrCreateMember} = require("../../utils/database/requetes/members");
 const { error, success } = require("../../utils/interaction-utils");
 
@@ -17,7 +17,9 @@ module.exports = {
         .setName('credits')
         .setDescription('Nombre de crédits.')
         .setRequired(true)
-    ),
+    )
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+    .setDMPermission(false),
   /**
    * @param {Object} options
    * @param {CustomClient} options.client - Le client

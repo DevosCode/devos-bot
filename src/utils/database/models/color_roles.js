@@ -26,18 +26,19 @@ module.exports = (sequelize, DataTypes) => {
     },
     label: {
       type: DataTypes.STRING,
-      allowNull: false, 
-      unique: true
+      allowNull: false
+    }, 
+    value: {
+      type: DataTypes.STRING,
+      allowNull: false
     }, 
     roleId : {
       type: DataTypes.STRING,
-      allowNull: false, 
-      unique: true
+      allowNull: false
     }, 
     guildId : {
       type: DataTypes.STRING,
-      allowNull: false, 
-      unique: true
+      allowNull: false
     },
     prix : {
       type : DataTypes.INTEGER,

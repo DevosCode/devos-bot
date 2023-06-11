@@ -27,8 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     label: {
       type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
+      allowNull: false
     },
     guildId: {
       type: DataTypes.STRING,
@@ -37,6 +36,10 @@ module.exports = (sequelize, DataTypes) => {
     prix : {
       type : DataTypes.INTEGER,
       allowNull: false,
+    },
+    description : {
+      type :  DataTypes.STRING,
+      allowNull : false
     }
   }, {
     sequelize,
