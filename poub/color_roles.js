@@ -5,7 +5,7 @@ const {
 
 
 module.exports = (sequelize, DataTypes) => {
-  class Items extends Model {
+  class ColorRoles extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -13,40 +13,42 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Items.hasMany(models.ItemsInventories, { foreignKey: 'itemId' });
     }
   }
-  /**
-   * Un item pour ItemsInventories
-   */
-  Items.init({
-    id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
+  
+  // Une couleur/item pour ColorsInventories
+  ColorRoles.init({
+    id : {
+        type: DataTypes.INTEGER, 
+        allowNull: false, 
+        autoIncrement: true,
+        primaryKey: true,
     },
     label: {
       type: DataTypes.STRING,
       allowNull: false
-    },
-    guildId: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    prix: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    description: {
+    }, 
+    value: {
       type: DataTypes.STRING,
       allowNull: false
+    }, 
+    roleId : {
+      type: DataTypes.STRING,
+      allowNull: false
+    }, 
+    guildId : {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    prix : {
+      type : DataTypes.INTEGER,
+      allowNull: false,
     }
   }, {
     sequelize,
-    modelName: 'Items',
+    modelName: 'ColorRoles',
   });
 
-  // Items.sync();
-  return Items;
+  // ColorRoles.sync();
+  return ColorRoles;
 };

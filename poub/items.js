@@ -13,18 +13,17 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Items.hasMany(models.ItemsInventories, { foreignKey: 'itemId' });
     }
   }
   /**
    * Un item pour ItemsInventories
    */
   Items.init({
-    id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
+    id : {
+        type: DataTypes.INTEGER, 
+        allowNull: false, 
+        autoIncrement: true,
+        primaryKey: true,
     },
     label: {
       type: DataTypes.STRING,
@@ -32,15 +31,15 @@ module.exports = (sequelize, DataTypes) => {
     },
     guildId: {
       type: DataTypes.STRING,
+      allowNull: false, 
+    },
+    prix : {
+      type : DataTypes.INTEGER,
       allowNull: false,
     },
-    prix: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    description: {
-      type: DataTypes.STRING,
-      allowNull: false
+    description : {
+      type :  DataTypes.STRING,
+      allowNull : false
     }
   }, {
     sequelize,

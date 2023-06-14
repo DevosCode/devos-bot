@@ -2,6 +2,7 @@ const { Client,  GatewayIntentBits, IntentsBitField, Partials  } = require('disc
 const { lstatSync, readdirSync } = require('fs');
 const { join } = require('path');
 const { sequelize, db } = require('./../utils/database/models/index.js');
+// const { sequelize } = require('../utils/database/models/indexx.js');
 const { logger } = require("./../utils/logger");
 
 class CustomClient extends Client {

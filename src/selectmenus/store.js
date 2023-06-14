@@ -11,7 +11,11 @@ module.exports = {
   */
   async run({ client, interaction }) {
     if (interaction.user.id !== interaction.customId.split('.')[1]) return interaction.deferUpdate();
-    const item = client.config.store.find(s => s.item == interaction.values[0]);
+    // const item = client.config.store.find(s => s.item == interaction.values[0]);
+    
+    // const color = await client.db.ColorRole.findOne({
+    //   where: { guildId: guildId, id: colorRoleId }
+    // });
 
     const res = await findOrCreateMember(interaction.member);
     const userDB = res.member;
