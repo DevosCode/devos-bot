@@ -1,12 +1,22 @@
-const { PermissionFlagsBits } = require("discord.js");
+const { PermissionFlagsBits, ChannelType, ActionRowBuilder, ButtonBuilder, EmbedBuilder } = require("discord.js");
+const { getGuildSettingsByGuildId } = require("./../utils/database/requetes/settings_guild");
+const { error, success } = require("./../utils/interaction-utils");
 
 module.exports = {
   async run({ client, interaction }) {
     const { guild, user } = interaction;
-    const ticket_category = guild.channels.cache.get(client.config.ticket_category_id) || await guild.channels.fetch(client.config.ticket_category_id).catch(() => null);
-    const category_channels_size = guild.channels.cache.filter(c => c.name.startsWith(`ticket-${user.discriminator}`)).size;
+    const settings = await getGuildSettingsByGuildId(guild.id);
+    let ticket_category, category_channels_size;
 
-    const ticket = await ticket_category.createChannel(`ticket-${user.discriminator}-${category_channels_size + 1}`, {
+    if (settings && settings.TICKET_CATEGORY) ticket_category = guild.channels.cache.get(settings.TICKET_CATEGORY) || await guild.channels.fetch(settings.TICKET_CATEGORY).catch(() => null);
+    if (!ticket_category) return error(interaction, "TICKET_CATEGORY n'a pas été configuré, veuillez prévenir le personnel.");
+
+    category_channels_size = guild.channels.cache.filter(c => c.name.startsWith(`ticket-${user.id}`)).size; 
+
+    const ticket = await interaction.guild.channels.create({
+      name: `ticket-${user.id}-${category_channels_size + 1}`, 
+      type: ChannelType.GuildText,
+      parent: ticket_category.id,
       permissionOverwrites: [
         {
           id: guild.id,
@@ -19,37 +29,42 @@ module.exports = {
       ]
     });
 
-    for (const staff_role_id of client.config.staff_roles_id) {
-      const staff_role = guild.roles.cache.find(r => r.id === staff_role_id);
+    // const ticket = await ticket_category.create(`ticket-${user.discriminator}-${category_channels_size + 1}`, {
+    //   permissionOverwrites: [
+    //     {
+    //       id: guild.id,
+    //       deny: [PermissionFlagsBits.ViewChannel]
+    //     },
+    //     {
+    //       id: user.id,
+    //       allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]
+    //     }
+    //   ]
+    // });
 
-      if (staff_role) ticket.permissionOverwrites.edit(staff_role, { ViewChannel: true, SendMessages: true });
-    }
+    // for (const staff_role_id of client.config.staff_roles_id) {
+    //   const staff_role = guild.roles.cache.find(r => r.id === staff_role_id);
 
+    //   if (staff_role) ticket.permissionOverwrites.edit(staff_role, { ViewChannel: true, SendMessages: true });
+    // }
+
+    const embed = new EmbedBuilder()
+      .setColor(client.config.colors.main)
+      .setTitle('Ticket')
+      .setDescription("Le staff vous contactera sous peu.\nPour fermer ce ticket, réagissez avec 🔒") 
+      .setFooter({ iconURL: client.user.displayAvatarURL(), text: client.config.footer });
+ 
     const ticket_message = await ticket.send({
       content: `${user.toString()}, Voici votre ticket.`,
-      embeds: [
-        {
-          color: client.config.colors.main,
-          description: "Le staff vous contactera sous peu.\nPour fermer ce ticket, réagissez avec 🔒",
-          footer: {
-            icon_url: client.user.displayAvatarURL(),
-            text: client.config.footer
-          }
-        }
-      ],
+      embeds: [embed ],
       components: [
-        {
-          type: 1,
-          components: [
-            {
-              type: 2,
-              label: "Fermer le ticket",
-              emoji: "🔒",
-              style: 2,
-              custom_id: `close-ticket`
-            }
-          ]
-        }
+        new ActionRowBuilder().addComponents(
+          new ButtonBuilder()
+            .setCustomId("close-ticket")
+            .setLabel("Fermer le ticket")
+            .setEmoji("🔒")
+            .setStyle(2)
+        ),
       ]
     });
 

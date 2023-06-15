@@ -17,7 +17,7 @@ module.exports = {
     let settings = await getGuildSettingsByGuildId(interaction.guild.id);
     let ticketChannel;
     if (settings && settings.TICKET_CHANNEL) ticketChannel = interaction.guild.channels.cache.get(settings.TICKET_CHANNEL) || await interaction.guild.channels.fetch(settings.TICKET_CHANNEL).catch(() => null);
-    if (!ticketChannel) return error(interaction, "Vous n'avez pas configurez TICKET_CHANNEL."); 
+    if (!ticketChannel) return error(interaction, "TICKET_CHANNEL n'a pas été configuré, veuillez prévenir le personnel."); 
     success(interaction, "Panel de ticket créé avec succès.", { ephemeral: true });
 
     const embed = new EmbedBuilder()

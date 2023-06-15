@@ -1,7 +1,7 @@
 const { SlashCommandBuilder , PermissionFlagsBits} = require('discord.js');
 const {editGuildSetting} = require("../../utils/database/requetes/settings_guild");
 const { error, success } = require("../../utils/interaction-utils");
-const {channelKeys} = require("./../../utils/data");
+const {channelKeys, categories} = require("./../../utils/data");
 
 
 module.exports = {
@@ -30,9 +30,9 @@ module.exports = {
   async run({interaction}) {
     const key = interaction.options.getString('key');
     const value = interaction.options.getString('value'); 
-    if (!key || !channelKeys.includes(key.toUpperCase())) return error(interaction, "Je ne connais pas cette clé.");
-
-    await editGuildSetting(key, value, interaction.member.guild.id);
+    if (!channelKeys.includes(key.toUpperCase()) && !categories.includes(key.toUpperCase())) return error(interaction, "Je ne connais pas cette clé.");
+    
+    await editGuildSetting(key.toUpperCase(), value, interaction.member.guild.id);
 
     success(interaction, `Maintenant la valeur de "${key.toUpperCase()}" sera "${value}".`);
   },
