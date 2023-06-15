@@ -30,7 +30,7 @@ module.exports = {
   async run({interaction}) {
     const key = interaction.options.getString('key');
     const value = interaction.options.getString('value'); 
-    if (!channelKeys.includes(key.toUpperCase()) && !categories.includes(key.toUpperCase())) return error(interaction, "Je ne connais pas cette clé.");
+    if (!channelKeys.includes(key.toUpperCase()) && !categories.includes(key.toUpperCase())) return error(interaction, "Cette clé n'existe pas ou ne peux pas être parametrer depuis cette commande.");
     
     await editGuildSetting(key.toUpperCase(), value, interaction.member.guild.id);
 

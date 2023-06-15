@@ -5,11 +5,12 @@ module.exports = {
         "STATS_BOTS_CHANNEL",
         "GENERAL_CHANNEL",
         "WELCOME_CHANNEL",
-        "TICKET_CHANNEL",
+        "TICKET_BTN_CHANNEL",
     ],
-    roleskeys : [
+    multiRolesKeys : [
         "BOOSTER_ROLE",
-        "AUTO_ROLE"
+        "WELCOME_ROLES",
+        "TICKET_ROLES"
     ], 
     categories : [
         "TICKET_CATEGORY"

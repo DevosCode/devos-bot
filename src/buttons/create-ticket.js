@@ -1,5 +1,5 @@
 const { PermissionFlagsBits, ChannelType, ActionRowBuilder, ButtonBuilder, EmbedBuilder } = require("discord.js");
-const { getGuildSettingsByGuildId } = require("./../utils/database/requetes/settings_guild");
+const { getGuildSettingsByGuildId, getSettingGroup } = require("./../utils/database/requetes/settings_guild");
 const { error, success } = require("./../utils/interaction-utils");
 
 module.exports = {
@@ -9,7 +9,7 @@ module.exports = {
     let ticket_category, category_channels_size;
 
     if (settings && settings.TICKET_CATEGORY) ticket_category = guild.channels.cache.get(settings.TICKET_CATEGORY) || await guild.channels.fetch(settings.TICKET_CATEGORY).catch(() => null);
-    if (!ticket_category) return error(interaction, "TICKET_CATEGORY n'a pas été configuré, veuillez prévenir le personnel.");
+    if (!ticket_category) return error(interaction, "TICKET_CATEGORY n'a pas été configuré, veuillez prévenir le staff.");
 
     category_channels_size = guild.channels.cache.filter(c => c.name.startsWith(`ticket-${user.id}`)).size; 
 
@@ -28,25 +28,13 @@ module.exports = {
         }
       ]
     });
-
-    // const ticket = await ticket_category.create(`ticket-${user.discriminator}-${category_channels_size + 1}`, {
-    //   permissionOverwrites: [
-    //     {
-    //       id: guild.id,
-    //       deny: [PermissionFlagsBits.ViewChannel]
-    //     },
-    //     {
-    //       id: user.id,
-    //       allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]
-    //     }
-    //   ]
-    // });
-
-    // for (const staff_role_id of client.config.staff_roles_id) {
-    //   const staff_role = guild.roles.cache.find(r => r.id === staff_role_id);
-
-    //   if (staff_role) ticket.permissionOverwrites.edit(staff_role, { ViewChannel: true, SendMessages: true });
-    // }
+ 
+    console.log("---liste de role", await getSettingGroup(interaction.guild.id, "TICKET_ROLES"));
+    for (const staff_role_id of await getSettingGroup(interaction.guild.id, "TICKET_ROLES")) {
+      const staff_role = guild.roles.cache.find(r => r.id == staff_role_id);
+      console.log("--trouver", staff_role);
+      if (staff_role) await ticket.permissionOverwrites.edit(staff_role.id, { ViewChannel: true, SendMessages: true });
+    }
 
     const embed = new EmbedBuilder()
       .setColor(client.config.colors.main)

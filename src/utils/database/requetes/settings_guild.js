@@ -1,6 +1,53 @@
 const { db } = require('../models');
 const { logger } = require('../../logger');
 
+/**
+ * Supprime un parametre de guild en utilisant la valeur, la clé et l'id de guild
+ * @param string key 
+ * @param string role_id 
+ * @param string guildId 
+ * @returns 
+ */
+const deleteGuildSettingByKeyValueGuildId= async (key, role_id, guildId) => {
+    try {
+        const setting = await db.GuildSettings.findOne({
+            where: { label: key, value : role_id, guildId: guildId }
+        });
+        if (setting) await setting.destroy();
+        // meme si la cle nexister pas on considere l'operation reussi
+        return true; // Suppression réussie
+    } catch (error) {
+        logger.error(`Erreur lors de la suppression du paramètre de configuration de label: ${key}, guild id: ${guildId}, erreur: ${error}`);
+        return false; // Erreur lors de la suppression
+    }
+}
+
+
+/**
+ * Permet de reccuperer un groupe de parametre enregistrer sous la meme cle
+ * @param string guildId l'id de serveur
+ * @param string key la cle a rechercher, comme AUTO_ROLE, WELCOME_ROLE, TICKET_ROLE
+ * @returns 
+ */
+const getSettingGroup = async (guildId, key) => {
+    try {
+        const settings = await db.GuildSettings.findAll({
+            where: {
+                guildId: guildId,
+                label: key
+            }
+        });
+        const formattedResponse = [];
+        settings.forEach((setting) => {
+            formattedResponse.push(setting.value);
+        });
+        return formattedResponse;
+    } catch (error) {
+        logger.error(`Erreur durant l'utilsiation de getSettingGroup id: ${guildId}, key: ${key}, erreur: ${error}`);
+        return [];
+    }
+};
+
 const formatGuildSettingsResponse = (settings) => {
     const formattedResponse = {};
 
@@ -31,9 +78,9 @@ const getSetting = async (key, guildId) => {
 
 /**
  * Ajoute une clé de guild en utilisant 
- * @param {*} key la clé
- * @param {*} value la valeur
- * @param {*} guildId  l'id de guild
+ * @param string key la clé
+ * @param string value la valeur
+ * @param string guildId  l'id de guild
  * @returns 
  */
 const addGuildSetting = async (key, value, guildId) => {
@@ -53,9 +100,9 @@ const addGuildSetting = async (key, value, guildId) => {
 
 /**
  * Edite une valeur de parametre en utilisant la clé et l'id de guild, si elle n'existe pas elle est crée
- * @param {*} key la clé de parametre
- * @param {*} value la nouvelle valeur
- * @param {*} guildId l'id de guild
+ * @param string key la clé de parametre
+ * @param string value la nouvelle valeur
+ * @param string guildId l'id de guild
  * @returns 
  */
 const editGuildSetting = async (key, value, guildId) => {
@@ -75,7 +122,7 @@ const editGuildSetting = async (key, value, guildId) => {
 }
 /**
  * Reccupere d'un coup tous les parametres d'un serveur grace à l'id de serveur
- * @param {*} guildId l'id de serveur
+ * @param string guildId l'id de serveur
  * @returns 
  */
 const getGuildSettingsByGuildId = async (guildId) => {
@@ -84,7 +131,7 @@ const getGuildSettingsByGuildId = async (guildId) => {
             where: {
                 guildId: guildId
             }
-        }); 
+        });
         return formatGuildSettingsResponse(settings);
     } catch (error) {
         logger.error(`Erreur lors de la récupération des paramètres de configuration pour guild id: ${guildId}, erreur: ${error}`);
@@ -96,5 +143,7 @@ module.exports = {
     getSetting,
     addGuildSetting,
     editGuildSetting,
-    getGuildSettingsByGuildId
+    getGuildSettingsByGuildId,
+    getSettingGroup,
+    deleteGuildSettingByKeyValueGuildId
 }
