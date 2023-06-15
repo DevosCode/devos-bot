@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { findOrCreateMember } = require("./../../utils/database/requetes/members");
-const { error, success } = require("./../../utils/interaction-utils");
+const { findOrCreateMember } = require("../../utils/database/requetes/members");
+const { error, success } = require("../../utils/interaction-utils");
 
 module.exports = {
     data: new SlashCommandBuilder()

@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder,  StringSelectMenuBuilder, StringSelectMenuOptionBuilder } = require('discord.js');
 const CustomClient = require("./../../structure/Client");
 const { error, success } = require("./../../utils/interaction-utils");
+const { getItems } = require("../../utils/database/requetes/items");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -15,22 +16,20 @@ module.exports = {
     const selectMenu = new StringSelectMenuBuilder()
       .setCustomId(`store.${interaction.user.id}`)
       .setPlaceholder('Choisissez un ou plusieurs items');
-
-    const itemsName = {
-      ad_role: 'Role de pub.'
-    };
-
-    client.config.store.forEach(item => {
+ 
+    const items = await getItems(interaction.guild.id); 
+    if (items.length ==0) return error(interaction, "Ce serveur ne possede aucun item.");
+    for (const item of items) {
       selectMenu.addOptions(
         new StringSelectMenuOptionBuilder()
-          .setLabel(itemsName[item.item])
-          .setDescription(`Prix : ${item.credits} crédits, ID : ${item.item}`)
-          .setValue(item.item)
+          .setLabel(item.label)
+          .setDescription(`Prix : ${item.prix} crédits, ID : ${item.id}`)
+          .setValue(item.id.toString())
       );
-    });
+    } 
+
 		const row = new ActionRowBuilder()
 			.addComponents(selectMenu);
-
 
     const embed = new EmbedBuilder()
       .setColor(client.config.colors.main)

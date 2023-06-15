@@ -4,7 +4,8 @@ module.exports = {
         "STATS_MEMBERS_CHANNEL",
         "STATS_BOTS_CHANNEL",
         "GENERAL_CHANNEL",
-        "WELCOME_CHANNEL"
+        "WELCOME_CHANNEL",
+        "TICKET_CHANNEL"
     ],
     roleskeys : [
         "BOOSTER_ROLE",

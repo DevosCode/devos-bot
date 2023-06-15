@@ -64,7 +64,7 @@ module.exports = {
         // get the code only if a codeElement is present
         const exampleCode = codeElement?.textContent;
         // add a field to the embed, containing the code, only if there is one
-        if(exampleCode) embed.fields.push({ name: 'Exemple', value: '```' + language + '\n' + exampleCode + '\n```' });
+        if(exampleCode) embed.addFields({ name: 'Exemple', value: '```' + language + '\n' + exampleCode + '\n```' });
         
         // finally return the embed
         return embed;
