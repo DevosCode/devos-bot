@@ -47,11 +47,11 @@ module.exports = (sequelize, DataTypes) => {
       unique: false
     },
     // la couleur effectif sur l'utilisateur
-    color: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      unique: false
-    }
+    // color: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull: true,
+    //   unique: false
+    // }
   }, {
     sequelize,
     modelName: 'Members',

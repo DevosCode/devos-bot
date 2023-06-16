@@ -26,16 +26,19 @@ module.exports = {
         }
       }
     }
+
     try {
       await interaction.member.roles.add(selectedColor.roleId);
-      interaction.update({
+      await interaction.update({
         content: `Je vous ai correctement mit le rôle \`${selectedColor.label}\`.`,
-        components: []
+        components: [],
+        embeds : []
       });
     } catch {
-      interaction.update({
+      await interaction.update({
         content: `Le rôle \`${selectedColor.label}\` n'est pas disponnible sur ce serveur, contactez le staff.`,
-        components: []
+        components: [],
+        embeds : []
       });
     }
   }

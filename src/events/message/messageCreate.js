@@ -1,7 +1,6 @@
 const { findOrCreateMember } = require("./../../utils/database/requetes/members");
 
-module.exports = async (client, message) => {
-  // console.log(message, "--", message.member.id)
+module.exports = async (client, message) => { 
   if (!message.author.bot) {
     let userDB = (await findOrCreateMember(message.member, message.member.guild.id)).member;
 

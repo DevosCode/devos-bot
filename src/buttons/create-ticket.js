@@ -28,11 +28,9 @@ module.exports = {
         }
       ]
     });
- 
-    console.log("---liste de role", await getSettingGroup(interaction.guild.id, "TICKET_ROLES"));
+  
     for (const staff_role_id of await getSettingGroup(interaction.guild.id, "TICKET_ROLES")) {
-      const staff_role = guild.roles.cache.find(r => r.id == staff_role_id);
-      console.log("--trouver", staff_role);
+      const staff_role = guild.roles.cache.find(r => r.id == staff_role_id); 
       if (staff_role) await ticket.permissionOverwrites.edit(staff_role.id, { ViewChannel: true, SendMessages: true });
     }
 

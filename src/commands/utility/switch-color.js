@@ -22,9 +22,7 @@ module.exports = {
       .setCustomId(`switch-color-roles.${interaction.user.id}`)
       .setPlaceholder("Choisissez une couleur");
 
-    for (const colorRole of colorList) {
-      console.log(colorRole)
-      console.log(colorRole.label, colorRole.value)
+    for (const colorRole of colorList) { 
       selectMenu.addOptions(
         new StringSelectMenuOptionBuilder()
           .setLabel(colorRole.label)

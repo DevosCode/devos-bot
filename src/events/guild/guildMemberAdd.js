@@ -1,20 +1,33 @@
 const { findOrCreateMember } = require("./../../utils/database/requetes/members");
-const { getGuildSettingsByGuildId } = require("../../utils/database/requetes/settings_guild");
+const { getGuildSettingsByGuildId, getSettingGroup } = require("../../utils/database/requetes/settings_guild");
 const { updateChannelNameWithCount } = require("../../utils/event");
+const { logger } = require('../../utils/logger');
+
 const { GuildMember } = require('discord.js');
 // const canvafy = require("canvafy");
+
 /**
  * 
  * @param {*} client 
  * @param {GuildMember} member 
  */
-module.exports = async (client, member) => {
-  await member.roles.add(client.config.autorole_roles, 'Ajout des autoroles.');
+module.exports = async (client, member) => { 
   await findOrCreateMember(member, member.guild.id);
   const settings = await getGuildSettingsByGuildId(member.guild.id);
+  // les roles que recoivent les membres à leur arriver
+  const welcome_roles = await getSettingGroup(member.guild.id, "WELCOME_ROLES"); 
+  if (welcome_roles.length >0) {
+    for (const roleId of welcome_roles)
+    { 
+       try { 
+        await member.roles.add(roleId, 'Ajout des autoroles.');
+       } catch (error) {
+        logger.error(`Je n'ai pas pus attribuer à ${member.user.username} le role ${roleId}`) 
+       }
+    }
+  }
   if (settings.GENERAL_CHANNEL) {
     const general_channel = member.guild.channels.cache.get(settings.GENERAL_CHANNEL) || await member.guild.channels.fetch(settings.GENERAL_CHANNEL).catch(() => null);
-    console.log(general_channel, "--", settings.GENERAL_CHANNEL);
     if (general_channel) await general_channel.send(`Bienvenue ${member.toString()} !\nN'hésite pas à faire comme chez toi et à venir parler dans le général 😉. Tu peux nous parler de toi ou de ce qui t'amène ici par exemple.`);
   }
   if (settings.WELCOME_CHANNEL) {
