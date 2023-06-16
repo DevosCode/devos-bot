@@ -42,7 +42,8 @@ module.exports = {
           .setColor(client.config.colors.main)
           .setAuthor({ name: member.user.tag, iconURL: member.user.displayAvatarURL() })
           .setTitle('Rank')
-          .setDescription(`Niveau : ${userDB.level}\nExperience : ${xpObjectif - (xpObjectif - userDB.experience)} / ${xpObjectif}\n\n${client.config.emojis.xpbar_left}${client.config.emojis.xpbar_full.repeat(Math.floor(pourcentage / 7))}${client.config.emojis.xpbar_empty.repeat(Math.floor((100 - pourcentage) / 7))}${client.config.emojis.xpbar_right}`)
+          // .setDescription(`Niveau : ${userDB.level}\nExperience : ${xpObjectif - (xpObjectif - userDB.experience)} / ${xpObjectif}\n\n${client.config.emojis.xpbar_left}${client.config.emojis.xpbar_full.repeat(Math.floor(pourcentage / 7))}${client.config.emojis.xpbar_empty.repeat(Math.floor((100 - pourcentage) / 7))}${client.config.emojis.xpbar_right}`)
+          .setDescription(`Niveau : ${userDB.level}\nExperience : ${xpObjectif - (xpObjectif - userDB.experience)} / ${xpObjectif}`)
           .setFooter({ iconURL: client.user.displayAvatarURL(), text: client.config.footer })
       ]
     });

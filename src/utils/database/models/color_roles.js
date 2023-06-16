@@ -12,27 +12,39 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      ColorRoles.hasMany(models.ColorsInventories, { foreignKey: 'colorRoleId' });
+
       // define association here
     }
   }
-  
+
   // Une couleur/item pour ColorsInventories
   ColorRoles.init({
-    id : {
-        type: DataTypes.INTEGER, 
-        allowNull: false, 
-        autoIncrement: true,
-        primaryKey: true,
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
     },
     label: {
       type: DataTypes.STRING,
-      allowNull: false, 
-      unique: true
-    }, 
-    role_id : {
+      allowNull: false
+    },
+    value: {
       type: DataTypes.STRING,
-      allowNull: false, 
-      unique: true
+      allowNull: false
+    },
+    roleId: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    guildId: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    prix: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     }
   }, {
     sequelize,

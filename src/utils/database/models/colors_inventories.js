@@ -12,18 +12,19 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      ColorsInventories.belongsTo(models.Members, { foreignKey: 'memberId' });
+      ColorsInventories.belongsTo(models.ColorRoles, { foreignKey: 'colorRoleId' });
     }
   }
   /*
-    L'inventaire des couleurs
+    L'inventaire des couleurs d'un utilisateur
    */
   ColorsInventories.init({
-    id : {
-        type: DataTypes.INTEGER, 
-        allowNull: false, 
-        autoIncrement: true,
-        primaryKey: true,
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
     }
   }, {
     sequelize,

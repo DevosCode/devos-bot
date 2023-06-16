@@ -31,16 +31,15 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false, 
       unique: false
     },
-    guild_id: {
+    guildId: {
       type: DataTypes.STRING,
       allowNull: false, 
       unique: false
     }, 
-    // la valeur du libele, par exempe 0123456789
+    // la valeur du libele, par exemple 0123456789
     value: {
       type: DataTypes.STRING,
-      allowNull: false, 
-      unique: false
+      allowNull: false
     }, 
   }, {
     sequelize,

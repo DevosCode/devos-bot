@@ -13,23 +13,20 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      ItemsInventories.belongsTo(models.Members, { foreignKey: 'memberId' });
+      ItemsInventories.belongsTo(models.Items, { foreignKey: 'itemId' });
     }
   }
   /*
-    L'inventaire des items
+    L'inventaire des items d'un utilisateur
    */
   ItemsInventories.init({
-    id : {
-        type: DataTypes.INTEGER, 
-        allowNull: false, 
-        autoIncrement: true,
-        primaryKey: true,
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
     },
-    label: {
-      type: DataTypes.STRING,
-      allowNull: false, 
-      unique: true
-    }    
   }, {
     sequelize,
     modelName: 'ItemsInventories',

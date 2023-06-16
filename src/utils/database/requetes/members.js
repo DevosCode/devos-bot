@@ -8,9 +8,14 @@ module.exports = {
      * @param {GuildMember} member 
      * @returns 
      */
-    async findOrCreateMember(member) {
+    async findOrCreateMember(member, guildId=null) { 
+        let dbMember;
         try {
-            const dbMember = await db.Members.findOne({ where: { id: member.id, guild_id: member.guild.id } });
+            if (guildId){
+                dbMember = await db.Members.findOne({ where: { id: member.id, guildId: guildId } });
+            }else{
+                dbMember = await db.Members.findOne({ where: { id: member.id, guildId: member.guild.id } });
+            }
 
             if (dbMember) {
                 // Le membre existe déjà
@@ -19,7 +24,7 @@ module.exports = {
                 // Le membre n'existe pas, on le crée
                 const newMember = await db.Members.create({
                     id: member.id,
-                    guild_id: member.guild.id,
+                    guildId: member.guild.id,
                     credits: 0,
                     experience: 0,
                     level: 1,

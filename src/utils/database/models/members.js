@@ -13,43 +13,45 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Members.hasMany(models.ItemsInventories, { foreignKey: 'memberId' });
+      Members.hasMany(models.ColorsInventories, { foreignKey: 'memberId' });
     }
   }
   /**
    * Un membre
    */
   Members.init({
-    id : {
-        type: DataTypes.STRING, 
-        allowNull: false, 
-        primaryKey: true,
-    },
-    guild_id: {
+    id: {
       type: DataTypes.STRING,
-      allowNull: false, 
+      allowNull: false,
+      primaryKey: true,
+    },
+    guildId: {
+      type: DataTypes.STRING,
+      allowNull: false,
       unique: false
     },
     credits: {
       type: DataTypes.INTEGER,
-      allowNull: false, 
+      allowNull: false,
       unique: false
     },
     experience: {
       type: DataTypes.INTEGER,
-      allowNull: false, 
+      allowNull: false,
       unique: false
     },
     level: {
       type: DataTypes.INTEGER,
-      allowNull: false, 
+      allowNull: false,
       unique: false
     },
     // la couleur effectif sur l'utilisateur
-    color: {
-      type: DataTypes.INTEGER,
-      allowNull: true, 
-      unique: false
-    }
+    // color: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull: true,
+    //   unique: false
+    // }
   }, {
     sequelize,
     modelName: 'Members',

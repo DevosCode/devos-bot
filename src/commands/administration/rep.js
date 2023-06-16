@@ -12,7 +12,7 @@ module.exports = {
         .setDescription('Choisissez un membre.')
         .setRequired(true)
     )
-    .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     .setDMPermission(false),
   /**
  * @param {Object} options

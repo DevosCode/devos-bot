@@ -29,18 +29,50 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
-// 1 ou N 
-db.Items.hasMany(db.ItemsInventories, {
-  foreignKey: 'ItemsId',
-  onDelete: 'cascade'
-});
-db.ItemsInventories.belongsTo(db.Items);
+// N - N
+// db.Items.belongsToMany(db.Members, { through: db.ItemsInventories });
+// db.Members.belongsToMany(db.Items, { through: db.ItemsInventories });
+// N - N
+// db.ColorRoles.belongsToMany(db.Members, { through: db.ColorsInventories });
+// db.Members.belongsToMany(db.ColorRoles, { through: db.ColorsInventories });
 
-// 1 ou N 
-db.Members.hasMany(db.ColorsInventories, {
-  foreignKey: 'ColorId',
-  onDelete: 'cascade'
-});
-db.ColorsInventories.belongsTo(db.Members);
+// Modèle Members
+// db.Members.associate = function(models) {
+//   db.Members.hasMany(models.ItemsInventories, { foreignKey: 'memberId' });
+//   db.Members.hasMany(models.ColorsInventories, { foreignKey: 'memberId' });
+// };
+
+// // Modèle Items
+// db.Items.associate = function(models) {
+//   db.Items.hasMany(models.ItemsInventories, { foreignKey: 'itemId' });
+// };
+
+// // Modèle ItemsInventories
+// db.ItemsInventories.associate = function(models) {
+//   db.ItemsInventories.belongsTo(models.Members, { foreignKey: 'memberId' });
+//   db.ItemsInventories.belongsTo(models.Items, { foreignKey: 'itemId' });
+// };
+
+// // Modèle ColorsInventories
+// db.ColorsInventories.associate = function(models) {
+//   db.ColorsInventories.belongsTo(models.Members, { foreignKey: 'memberId' });
+//   db.ColorsInventories.belongsTo(models.ColorRole, { foreignKey: 'colorRoleId' });
+// };
+
+// // Modèle ColorRole
+// db.ColorRole.associate = function(models) {
+//   db.ColorRole.hasMany(models.ColorsInventories, { foreignKey: 'colorRoleId' });
+// };
+
+
+// db.Members.hasMany(db.ItemsInventories, { foreignKey: 'memberId' });
+// db.ItemsInventories.belongsTo(db.Members, { foreignKey: 'memberId' });
+// db.ItemsInventories.belongsTo(db.Items, { foreignKey: 'itemsId' });
+// db.Items.hasMany(db.ItemsInventories, { foreignKey: 'itemsId' });
+ 
+// db.Members.hasMany(db.ColorsInventories, { foreignKey: 'memberId' });
+// db.ColorsInventories.belongsTo(db.Members, { foreignKey: 'memberId' });
+// db.ColorsInventories.belongsTo(db.ColorRole, { foreignKey: 'colorRoleId' });
+// db.ColorRole.hasMany(db.ColorsInventories, { foreignKey: 'colorRoleId' });
 
 module.exports = { sequelize, db };
