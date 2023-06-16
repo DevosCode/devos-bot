@@ -41,6 +41,10 @@ module.exports = (sequelize, DataTypes) => {
     value: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    type: {
+      type: DataTypes.STRING, // ROLE, ITEM
+      allowNull: false
     }
   }, {
     sequelize,

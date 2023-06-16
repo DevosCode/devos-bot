@@ -18,7 +18,8 @@ module.exports = {
                 label: item.label,
                 value: item.value, 
                 guildId: item.guildId,
-                prix: item.prix
+                prix: item.prix,
+                type : item.type
             };
         });
     },
@@ -39,20 +40,22 @@ module.exports = {
      * @param string label le label de l'item
      * @param string prix de l'item
      * @param string value la valeur de l'item
+     * @param string type le type de l'item, ROLE ou ITEM
      * @returns l'item crée ou null
      */
-    addItem: async (guildId, label, prix, value) => {
+    addItem: async (guildId, label, prix, value, type="ROLE"|"ITEM") => {
         try {
             const item = await db.Items.create({
                 guildId: guildId,
                 label: label, 
                 prix: prix,
-                value: value
+                value: value, 
+                type : type
             });
             await item.save();
             return item;
-        } catch (error) {
-            logger.error(`Erreur lors de l'ajout de l'élément : ${error}`);
+        } catch (err) {
+            logger.error(`Erreur lors de l'ajout de l'élément : ${err}`);
             return null;
         }
     },
@@ -71,8 +74,8 @@ module.exports = {
                 return true; 
             } 
             // Suppression réussie
-        } catch (error) {
-            logger.error(`Erreur lors de la suppression de l'élément ayant l'id ${itemId} : ${error}`);
+        } catch (err) {
+            logger.error(`Erreur lors de la suppression de l'élément ayant l'id ${itemId} : ${err}`);
             return false;
         }
     }
