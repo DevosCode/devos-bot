@@ -16,8 +16,8 @@ const deleteGuildSettingByKeyValueGuildId= async (key, role_id, guildId) => {
         if (setting) await setting.destroy();
         // meme si la cle nexister pas on considere l'operation reussi
         return true; // Suppression réussie
-    } catch (error) {
-        logger.error(`Erreur lors de la suppression du paramètre de configuration de label: ${key}, guild id: ${guildId}, erreur: ${error}`);
+    } catch (err) {
+        logger.error(`Erreur lors de la suppression du paramètre de configuration de label: ${key}, guild id: ${guildId}, erreur: ${err}`);
         return false; // Erreur lors de la suppression
     }
 }
@@ -42,8 +42,8 @@ const getSettingGroup = async (guildId, key) => {
             formattedResponse.push(setting.value);
         });
         return formattedResponse;
-    } catch (error) {
-        logger.error(`Erreur durant l'utilsiation de getSettingGroup id: ${guildId}, key: ${key}, erreur: ${error}`);
+    } catch (err) {
+        logger.error(`Erreur durant l'utilsiation de getSettingGroup id: ${guildId}, key: ${key}, erreur: ${err}`);
         return [];
     }
 };
@@ -70,8 +70,8 @@ const getSetting = async (key, guildId) => {
         if (guildId) {
             setting = await db.GuildSettings.findOne({ where: { id: member.id, guildId: guildId } });
         }
-    } catch (error) {
-        logger.error(`Erreur lors de la la recherche de la key:: ${key}, guild id: ${guildId}, erreur: ${error}`);
+    } catch (err) {
+        logger.error(`Erreur lors de la la recherche de la key:: ${key}, guild id: ${guildId}, erreur: ${err}`);
     }
     return setting;
 }
@@ -92,8 +92,8 @@ const addGuildSetting = async (key, value, guildId) => {
             value: value
         });
         await setting.save();
-    } catch (error) {
-        logger.error(`Erreur lors de l\'ajout du paramètre de configuration de la key: ${key}, value: ${value}, guild id: ${guildId}, erreur: ${error}`);
+    } catch (err) {
+        logger.error(`Erreur lors de l\'ajout du paramètre de configuration de la key: ${key}, value: ${value}, guild id: ${guildId}, erreur: ${err}`);
     }
     return setting;
 }
@@ -115,8 +115,8 @@ const editGuildSetting = async (key, value, guildId) => {
         } else {
             setting = await addGuildSetting(key, value, guildId)
         }
-    } catch (error) {
-        logger.error(`Erreur lors de l\'edition du paramètre de configuration de la key: ${key}, value: ${value}, guild id: ${guildId}, erreur: ${error}`);
+    } catch (err) {
+        logger.error(`Erreur lors de l\'edition du paramètre de configuration de la key: ${key}, value: ${value}, guild id: ${guildId}, erreur: ${err}`);
     }
     return setting;
 }
@@ -133,8 +133,8 @@ const getGuildSettingsByGuildId = async (guildId) => {
             }
         });
         return formatGuildSettingsResponse(settings);
-    } catch (error) {
-        logger.error(`Erreur lors de la récupération des paramètres de configuration pour guild id: ${guildId}, erreur: ${error}`);
+    } catch (err) {
+        logger.error(`Erreur lors de la récupération des paramètres de configuration pour guild id: ${guildId}, erreur: ${err}`);
         return null;
     }
 };

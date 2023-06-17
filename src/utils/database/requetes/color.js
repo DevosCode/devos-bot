@@ -20,8 +20,8 @@ const { logger } = require('../../logger');
         prix: prix
       });
       return colorRole;
-    } catch (error) {
-      console.error(`Erreur lors de l'ajout d'une couleur : ${error}`);
+    } catch (err) {
+      logger.error(`Erreur lors de l'ajout d'une couleur : ${err}`);
       return null;
     }
   };
@@ -37,9 +37,9 @@ const { logger } = require('../../logger');
         where: { id: colorRoleId }
       });
       return deletedColorRole;
-    } catch (error) {
-      console.error(`Erreur lors de la suppression de la couleur : ${error}`);
-      throw new Error('Erreur lors de la suppression de la couleur');
+    } catch (err) {
+      console.error(`Erreur lors de la suppression de la couleur : ${err}`);
+      return false;
     }
   };
 
@@ -115,8 +115,8 @@ const { logger } = require('../../logger');
         colorRoleId: colorRoleId
       });
       return inventoryColor;
-    } catch (error) {
-      logger.error(`Erreur lors de l'ajout de la couleur à l'inventaire : ${error}`);
+    } catch (err) {
+      logger.error(`Erreur lors de l'ajout de la couleur à l'inventaire : ${err}`);
       return null;
     }
   };
@@ -146,5 +146,4 @@ module.exports = {
   colorOfMember,
   removeColorRole,
   addColorRole
-
 }

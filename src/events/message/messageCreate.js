@@ -1,14 +1,12 @@
 const { findOrCreateMember } = require("./../../utils/database/requetes/members");
 
-module.exports = async (client, message) => { 
-  if (!message.author.bot) {
+module.exports = async (client, message) => {  
+  if (!message.author.bot) { 
     let userDB = (await findOrCreateMember(message.member, message.member.guild.id)).member;
 
     const xpObjectif = userDB.level ** 2 * 100;
 
     userDB.experience += Math.floor(Math.random() * 10) + 5;
-
-    // await client.pool.query(`UPDATE users SET experience = ${userDB.experience} WHERE id = ${message.member.id}`);
 
     const credits_number = message.member.roles.cache.has(client.config.booster_role) ? 3 : 2;
 
@@ -28,15 +26,11 @@ module.exports = async (client, message) => {
 
       if (!member) return;
 
-      let userDB = (await findOrCreateMember(member, member.guild.id)).member;
-      // const usersDB = await client.pool.query(`SELECT * FROM users WHERE id = ${member.id}`);
-      // const userDB = usersDB.rows[0];
-
+      let userDB = (await findOrCreateMember(member, member.guild.id)).member; 
       const credits_number = member.roles.cache.has(client.config.booster_role) ? 1 : 0.5;
 
       userDB.credits = userDB.credits + credits_number;
-      await userDB.save();
-      // await client.pool.query(`UPDATE users SET credits = ${userDB.credits + credits_number} WHERE id = ${member.id}`);
+      await userDB.save(); 
       message.channel.send(`Merci ${member.toString()} d'avoir bump le serveur. Voici \`${credits_number}\` credit en récompense.`);
     }
   }

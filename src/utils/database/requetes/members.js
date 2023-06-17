@@ -35,9 +35,9 @@ module.exports = {
                 await newMember.save();
                 return {"member" : newMember, "create" : true};
             }
-        } catch (error) {
-            logger.error('Erreur lors de la recherche/création du membre :'+ error);
-            throw error;
+        } catch (err) {
+            logger.error('Erreur lors de la recherche/création du membre :'+ err);
+            return null;
         }
     },
 

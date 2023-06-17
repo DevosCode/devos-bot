@@ -1,64 +1,14 @@
 {
-  "ad_role": "947985140003528705",
-  "autorole_roles": [
-    "1095005516637417581",
-    "759433065457123328",
-    "1009552404875858062",
-    "1009589010668195900",
-    "930136305306832957",
-    "1082558409112551464",
-    "759701287255932938",
-    "948215723283591198"
-  ],
   "booster_role": "774657788223029280",
   "disboard_id": "302050872383242240",
   "devoscode_id": "759432409400999967",
-  "devoscode_test_id": "1095005516050223278",
-  "admin_role": "1009559533825294576",
+  "devoscode_test_id": "1095005516050223278ss", 
   "colors": {
     "blue": "#3e70dd",
     "green": "#51b581",
     "main": "#0fcec4",
     "red": "#ed4245"
   },
-  "color_roles": [
-    {
-      "emoji": "🟣",
-      "name": "Violet",
-      "id": "purple",
-      "role_id": "984861959772065922"
-    },
-    {
-      "emoji": "🔵",
-      "name": "Bleu",
-      "id": "blue",
-      "role_id": "984861981062361139"
-    },
-    {
-      "emoji": "🟢",
-      "name": "Vert",
-      "id": "green",
-      "role_id": "984861993108389938"
-    },
-    {
-      "emoji": "🟡",
-      "name": "Jaune",
-      "id": "yellow",
-      "role_id": "984862025966575637"
-    },
-    {
-      "emoji": "🟠",
-      "name": "Orange",
-      "id": "orange",
-      "role_id": "984862048771010570"
-    },
-    {
-      "emoji": "🔴",
-      "name": "Rouge",
-      "id": "red",
-      "role_id": "984862069419573258"
-    }
-  ],
   "emojis": {
     "administration": "<:administration:947422837742895164>",
     "economy": "<:economy:947422888896630794>",
@@ -69,18 +19,12 @@
     "xpbar_full": "<:xpbar_full:947467716766335016>",
     "xpbar_left": "<:xpbar_left:947467373655511050>",
     "xpbar_right": "<:xpbar_right:947467751025430571>"
-  },
-  "general_channel_id": "946838404199505983",
+  }, 
   "footer": "Devos Bot - Official Bot of Devos Code",
   "presence": {
     "type": "online",
     "status": "/help | Bot of Devos Code"
-  },
-  "stats": {
-    "all": "958740328528089148",
-    "members": "958740354855751680",
-    "bots": "958740383028895744"
-  },
+  }, 
   "store": [
     {
       "credits": 30,

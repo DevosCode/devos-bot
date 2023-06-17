@@ -25,8 +25,8 @@ module.exports = {
     for (const colorRole of colorList) { 
       selectMenu.addOptions(
         new StringSelectMenuOptionBuilder()
-          .setLabel(colorRole.label)
-          .setDescription(`Couleur ID : ${colorRole.value}`)
+          .setLabel(`${colorRole.label}`)
+          .setDescription(`Aperçu : ${colorRole.value}`)
           .setValue(colorRole.id.toString())
       )
     }
