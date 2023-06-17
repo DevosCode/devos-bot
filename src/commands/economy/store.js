@@ -37,7 +37,7 @@ module.exports = {
         selectMenu.addOptions(
           new StringSelectMenuOptionBuilder()
             .setLabel(item.label)
-            .setDescription(`Prix : ${item.prix} crédits, ID : ${item.id}`)
+            .setDescription(`Prix : ${item.prix} crédits, Aperçu : ${item.value}, ID : ${item.id}`)
             .setValue(item.id.toString())
         );
       }

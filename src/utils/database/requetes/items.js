@@ -19,7 +19,8 @@ module.exports = {
                 value: item.value, 
                 guildId: item.guildId,
                 prix: item.prix,
-                type : item.type
+                type : item.type,
+                description : item.description
             };
         });
     },
@@ -40,17 +41,19 @@ module.exports = {
      * @param string label le label de l'item
      * @param string prix de l'item
      * @param string value la valeur de l'item
+     * @param description une description de l'item
      * @param string type le type de l'item, ROLE ou ITEM
      * @returns l'item crée ou null
      */
-    addItem: async (guildId, label, prix, value, type="ROLE"|"ITEM") => {
+    addItem: async (guildId, label, prix, value,description,  type="ROLE"|"ITEM") => {
         try {
             const item = await db.Items.create({
                 guildId: guildId,
                 label: label, 
                 prix: prix,
                 value: value, 
-                type : type
+                type : type,
+                description : description
             });
             await item.save();
             return item;
