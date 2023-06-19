@@ -12,7 +12,7 @@ const { GuildMember } = require('discord.js');
  * @param {GuildMember} member 
  */
 module.exports = async (client, member) => { 
-  await findOrCreateMember(member, member.guild.id);
+  await findOrCreateMember(member);
   const settings = await getGuildSettingsByGuildId(member.guild.id);
   // les roles que recoivent les membres à leur arriver
   const welcome_roles = await getSettingGroup(member.guild.id, "WELCOME_ROLES"); 

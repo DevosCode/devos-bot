@@ -26,7 +26,7 @@ module.exports = async (client, message) => {
 
       if (!member) return;
 
-      let userDB = (await findOrCreateMember(member, member.guild.id)).member; 
+      let userDB = (await findOrCreateMember(member)).member; 
       const credits_number = member.roles.cache.has(client.config.booster_role) ? 1 : 0.5;
 
       userDB.credits = userDB.credits + credits_number;

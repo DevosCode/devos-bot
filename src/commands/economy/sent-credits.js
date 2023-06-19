@@ -31,10 +31,10 @@ module.exports = {
         if (member.bot) return error(interaction, "Vous ne pouvez pas envoyer des crédits à un bot.");
         if (credits < 0) return error(interaction, "Vous ne pouvez pas envoyer des crédits négatifs à un membre.");
 
-        let sender = await findOrCreateMember(interaction.member);
-        if (sender.member.credits<credits) return error(interaction, "Vous n'avez pas assez de crédits.");
+        let sender = (await findOrCreateMember(member)).member;
+        if (sender.credits<credits) return error(interaction, "Vous n'avez pas assez de crédits.");
         
-        let receiver = await findOrCreateMember(member);
+        let receiver = (await findOrCreateMember(member)).member;
 
         sender.credits = sender.credits-credits;
         receiver.credits = receiver.credits-credits;

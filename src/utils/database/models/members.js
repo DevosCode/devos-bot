@@ -22,9 +22,15 @@ module.exports = (sequelize, DataTypes) => {
    */
   Members.init({
     id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    member_id: {
       type: DataTypes.STRING,
       allowNull: false,
-      primaryKey: true,
+      unique: false
     },
     guildId: {
       type: DataTypes.STRING,

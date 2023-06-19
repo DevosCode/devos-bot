@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const CustomClient = require("./../../structure/Client");
 const { error, success } = require("./../../utils/interaction-utils");
+const {findOrCreateMember} = require("./../../utils/database/requetes/members");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -17,16 +18,12 @@ module.exports = {
    * @param {CommandInteraction} options.interaction - L'interaction de commande
    */
   async run({ client, interaction }) {
-    const member = interaction.options.getMember('membre') || interaction.member;
-
-    if (!member) return error(interaction, 'Je ne trouve pas ce membre sur le serveur.');
+    let member = interaction.options.getMember('membre') || interaction.member;
+    if (!member) member = interaction.member;
+    // if (!member) return error(interaction, 'Je ne trouve pas ce membre sur le serveur.');
     if (member.user.bot) return error(interaction, 'Les bots n\'ont pas de credits.');
-
-    const userDB = await client.db.Members.findOne({
-      where: {
-        id: member.id
-      }
-    })
+    const userDB = (await findOrCreateMember(member)).member;
+    // n'est jamais censer arriver
     if (!userDB) {
       if (member.id == interaction.member.id) return error(interaction, 'Votre profil n\'est pas enregistré. Faites la commande `/create-profile` ou envoyez un message pour enregistrer un profil.');
       else return error(interaction, `${member.toString()} n'a pas encore de profil.`);

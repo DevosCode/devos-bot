@@ -26,7 +26,7 @@ module.exports = {
     if (member.user.bot) return error(interaction, 'Vous ne pouvez pas donner des crédits à un bot.');
     if (member.id == interaction.member.id) return error(interaction, 'Vous ne pouvez pas vous auto rep.');
 
-    const userDB = (await findOrCreateMember(member)).member
+    const userDB = (await findOrCreateMember(member)).member;
 
     const credits = member.roles.cache.has(client.config.booster_role) ? 2 : 1;
     userDB.credits += credits;
