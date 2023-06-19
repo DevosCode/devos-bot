@@ -11,10 +11,12 @@ module.exports = {
     if (settings && settings.TICKET_CATEGORY) ticket_category = guild.channels.cache.get(settings.TICKET_CATEGORY) || await guild.channels.fetch(settings.TICKET_CATEGORY).catch(() => null);
     if (!ticket_category) return error(interaction, "TICKET_CATEGORY n'a pas été configuré, veuillez prévenir le staff.");
 
-    category_channels_size = guild.channels.cache.filter(c => c.name.startsWith(`ticket-${user.id}`)).size; 
-
+    category_channels_size = guild.channels.cache.filter(c => c.name.startsWith(`ticket-${user.username}`)).size; 
+    if (category_channels_size>2) {
+      return error(interaction, `Il y a trop de ticket portant le nom '${user.username}', si le problème persiste contacter le staff.`, {ephemeral:true});
+    }
     const ticket = await interaction.guild.channels.create({
-      name: `ticket-${user.id}-${category_channels_size + 1}`, 
+      name: `ticket-${user.username}-${category_channels_size + 1}`, 
       type: ChannelType.GuildText,
       parent: ticket_category.id,
       permissionOverwrites: [

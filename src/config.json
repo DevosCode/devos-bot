@@ -6,7 +6,7 @@
   "colors": {
     "blue": "#3e70dd",
     "green": "#51b581",
-    "main": "#0fcec4",
+    "main": "#FF6342",
     "red": "#ed4245"
   },
   "emojis": {
@@ -24,25 +24,5 @@
   "presence": {
     "type": "online",
     "status": "/help | Bot of Devos Code"
-  }, 
-  "store": [
-    {
-      "credits": 30,
-      "name": "Rôle pub",
-      "id": "ad_role",
-      "description": "Permet de faire la pub que vous voulez dans le salon <#947985768142503987> toutes les 6 heures."
-    },
-    {
-      "credits": 15,
-      "name": "Rôles de couleur",
-      "id": "color_roles",
-      "description": "Permet de changer votre couleur qui apparait sur le serveur."
-    },
-    {
-      "credits": 10,
-      "name": "Changement de pseudo",
-      "id": "change_nickname_role",
-      "description": "Permet d'avoir la permission de changer votre pseudo sur le serveur."
-    }
-  ]
+  }
 }
