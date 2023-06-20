@@ -26,8 +26,10 @@ module.exports = {
     let usersDB, embed;
     if (leadeboard_type == 'level') {
       usersDB = await client.db.Members.findAll({
+        where: {
+          guildId : interaction.member.guild.id,
+        },
         order: [['experience', 'DESC']],
-        guildId : interaction.member.guild.id,
         limit: 10
       });
 
@@ -43,11 +45,13 @@ module.exports = {
       });
 
     }
-    
+
     if (leadeboard_type == 'credit') {
       usersDB = await client.db.Members.findAll({
+        where: {
+          guildId : interaction.member.guild.id,
+        },
         order: [['credits', 'DESC']],
-        guildId : interaction.member.guild.id,
         limit: 10
       });
 
@@ -55,7 +59,7 @@ module.exports = {
         .setColor(client.config.colors.main)
         .setAuthor({ name: interaction.guild.name, iconURL: interaction.guild.iconURL() })
         .setTitle('Crédits Leaderboard')
-        .setFooter({ iconURL: client.user.displayAvatarURL(), text: client.config.footer }); 
+        .setFooter({ iconURL: client.user.displayAvatarURL(), text: client.config.footer });
       await usersDB.map(async userDB => {
         const member = await interaction.guild.members.fetch(userDB.member_id);
         embed.addFields({ name: `${member.user.username}`, value: `Crédits : ${userDB.credits}` });
