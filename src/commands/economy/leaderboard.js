@@ -27,6 +27,7 @@ module.exports = {
     if (leadeboard_type == 'level') {
       usersDB = await client.db.Members.findAll({
         order: [['experience', 'DESC']],
+        guildId : interaction.member.guild.id,
         limit: 10
       });
 
@@ -46,6 +47,7 @@ module.exports = {
     if (leadeboard_type == 'credit') {
       usersDB = await client.db.Members.findAll({
         order: [['credits', 'DESC']],
+        guildId : interaction.member.guild.id,
         limit: 10
       });
 
