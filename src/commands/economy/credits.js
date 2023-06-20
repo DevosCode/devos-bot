@@ -31,7 +31,7 @@ module.exports = {
     interaction.reply({
       embeds: [
         new EmbedBuilder()
-          .setColor(client.config.colors.blue)
+          .setColor(client.config.colors.main)
           .setAuthor({ name: member.user.tag, iconURL: member.user.displayAvatarURL() })
           .setTitle('Credits')
           .setDescription(member.id === interaction.member.id ? `Vous avez ${userDB.credits} credit${userDB.credits > 1 ? 's' : ''}.` : `${member.toString()} a ${userDB.credits} credit${userDB.credits > 1 ? 's' : ''}.`)

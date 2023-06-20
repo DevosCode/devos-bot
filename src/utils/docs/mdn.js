@@ -19,7 +19,7 @@ module.exports = {
             .setAuthor({name : title, iconURL:'https://developer.mozilla.org/apple-touch-icon.6803c6f0.png', url: 'https://developer.mozilla.org/apple-touch-icon.6803c6f0.png'})
             .setURL(`https://developer.mozilla.org${mdn_url}`)
             .setDescription(`${summary}\n\n[lire plus](https://developer.mozilla.org${mdn_url})\n`)
-            .setColor(interaction.client.config.colors.green)
+            .setColor(interaction.client.config.colors.main)
             .setFooter({text : 'from MDN Web Docs'});
             
         
