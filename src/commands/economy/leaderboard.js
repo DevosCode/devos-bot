@@ -37,8 +37,8 @@ module.exports = {
         .setFooter({ iconURL: client.user.displayAvatarURL(), text: client.config.footer });
 
       await usersDB.map(async userDB => {
-        const member = await interaction.guild.members.fetch(userDB.id);
-        embed.addFields({ name: `${member.user.username}#${member.user.discriminator}`, value: `Niveau : ${userDB.level}, Experience : ${userDB.experience}` });
+        const member = await interaction.guild.members.fetch(userDB.member_id);
+        embed.addFields({ name: `${member.user.username}`, value: `Niveau : ${userDB.level}, Experience : ${userDB.experience}` });
       });
 
     }
@@ -53,11 +53,10 @@ module.exports = {
         .setColor(client.config.colors.main)
         .setAuthor({ name: interaction.guild.name, iconURL: interaction.guild.iconURL() })
         .setTitle('Crédits Leaderboard')
-        .setFooter({ iconURL: client.user.displayAvatarURL(), text: client.config.footer });
-
+        .setFooter({ iconURL: client.user.displayAvatarURL(), text: client.config.footer }); 
       await usersDB.map(async userDB => {
-        const member = await interaction.guild.members.fetch(userDB.id);
-        embed.addFields({ name: `${member.user.username}#${member.user.discriminator}`, value: `Crédits : ${userDB.credits}` });
+        const member = await interaction.guild.members.fetch(userDB.member_id);
+        embed.addFields({ name: `${member.user.username}`, value: `Crédits : ${userDB.credits}` });
       });
 
     }
