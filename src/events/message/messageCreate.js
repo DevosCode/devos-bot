@@ -14,7 +14,7 @@ module.exports = async (client, message) => {
       userDB.credits = userDB.credits + credits_number;
       userDB.level = userDB.level + 1;
       // await client.pool.query(`UPDATE users SET credits = ${userDB.credits + credits_number}, level = ${userDB.level + 1} WHERE id = ${message.member.id}`);
-      message.channel.send(`Bravo ${message.member.toString()} ! Vous venez de passer au niveau **${userDB.level + 1}**. Vous gagnez \`${credits_number}\` credits en récompense.`);
+      message.channel.send(`Bravo ${message.member.toString()} ! Vous venez de passer au niveau **${userDB.level}**. Vous gagnez \`${credits_number}\` credits en récompense.`);
     }
 
     await userDB.save();
