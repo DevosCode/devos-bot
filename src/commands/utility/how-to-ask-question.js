@@ -22,7 +22,7 @@ module.exports = {
       .setColor(client.config.colors.main)
       .setAuthor({ name: member.user.tag, iconURL: member.user.displayAvatarURL() })
       .setTitle('Voici comment bien poser son problème.')
-      .setDescription(`${member.toString()}\n1) Expliquez le contexte de votre problème.\n2) Montrez le code ou la partie qui bloque.\n3) Expliquez ce qu'il devrait ce passer dans le cas normale.\n4) Montrez votre code.\n\nGoogle est un outil très puissant, n'hésitez pas a l'utiliser.`)
+      .setDescription(`${member.toString()}\n1) Montrez l'erreur si vous en avez une. \n2) Expliquez le contexte de votre problème.\n3) Expliquez ce qu'il devrait se passer dans le cas normal.\n4) Montrez votre code.\n\nGoogle est un outil très puissant, n'hésitez pas à l'utiliser.`)
       .setFooter({ iconURL: client.user.displayAvatarURL(), text: client.config.footer });
 
     interaction.reply({ embeds: [embed] });

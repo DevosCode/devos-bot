@@ -30,20 +30,21 @@ module.exports = {
         }
       ]
     });
-  
+    let mentions = "";
     for (const staff_role_id of await getSettingGroup(interaction.guild.id, "TICKET_ROLES")) {
       const staff_role = guild.roles.cache.find(r => r.id == staff_role_id); 
+      if (staff_role) mentions+= `${staff_role.toString()}`
       if (staff_role) await ticket.permissionOverwrites.edit(staff_role.id, { ViewChannel: true, SendMessages: true });
     }
 
     const embed = new EmbedBuilder()
       .setColor(client.config.colors.main)
       .setTitle('Ticket')
-      .setDescription("Le staff vous contactera sous peu.\nPour fermer ce ticket, réagissez avec 🔒") 
+      .setDescription(`Le staff vous contactera sous peu.\nPour fermer ce ticket, réagissez avec 🔒`) 
       .setFooter({ iconURL: client.user.displayAvatarURL(), text: client.config.footer });
  
     const ticket_message = await ticket.send({
-      content: `${user.toString()}, Voici votre ticket.`,
+      content: `${user.toString()}, Voici votre ticket.${mentions}`,
       embeds: [embed ],
       components: [
         new ActionRowBuilder().addComponents(
