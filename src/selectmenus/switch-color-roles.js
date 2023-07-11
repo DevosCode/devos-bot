@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, CommandInteraction, PermissionFlagsBits } = require('discord.js');
 const CustomClient = require("./../structure/Client");
 const { colorOfMember } = require("./../utils/database/requetes/color");
+const { findOrCreateMember } = require('../utils/database/requetes/members');
 
 module.exports = {
   /**
@@ -11,7 +12,8 @@ module.exports = {
   async run({ client, interaction }) {
     if (interaction.user.id !== interaction.customId.split('.')[1]) return interaction.deferUpdate();
     // reccupere toutes les couleurs
-    const color_roles = await colorOfMember(interaction.member.id);
+    const userDB = (await findOrCreateMember(interaction.member)).member;
+    const color_roles = await colorOfMember(userDB.id);
     // reccupere la couleur selectionner
     const selectedColor = color_roles.find((element) => {
       return element.id == interaction.values[0] && element.guildId == interaction.guild.id;

@@ -17,7 +17,7 @@ module.exports = {
 
     const res = await findOrCreateMember(interaction.member);
     const userDB = res.member;
-    if (await memberHaveColor(userDB.id, item.label, item.guildId)) return await error(interaction, `${interaction.user.toString()}, vous possédez déjà cette couleur.`, {ephemeral:true});
+    if (await memberHaveColor(userDB, item.label)) return await error(interaction, `${interaction.user.toString()}, vous possédez déjà cette couleur.`, {ephemeral:true});
     if (userDB.credits < item.prix) return await error(interaction, `${interaction.user.toString()}, Il vous manque ${item.prix - userDB.credits} credits pour acheter ce produit.`, {ephemeral:true});
     // ajoute l'item a son inventaire de couleur
     userDB.credits = userDB.credits - item.prix;

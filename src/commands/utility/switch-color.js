@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder } = require('discord.js');
 const CustomClient = require("./../../structure/Client");
 const { colorOfMember} = require("./../../utils/database/requetes/color");
+const { findOrCreateMember } = require('../../utils/database/requetes/members');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -13,7 +14,8 @@ module.exports = {
    * @param {CommandInteraction} options.interaction - L'interaction de commande
    */
   async run({ client, interaction }) {
-    const colorList = await colorOfMember(interaction.member.id);
+    const userDB = (await findOrCreateMember(interaction.member)).member;
+    const colorList = await colorOfMember(userDB.id);
     
     if (!colorList.length) return interaction.reply(`${interaction.user.toString()}, Vous n'avez acheté aucun rôle de couleur.`);
 

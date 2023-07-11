@@ -45,12 +45,12 @@ const { logger } = require('../../logger');
 
   /**
    * Reccuperer les couleurs d'un membre
-   * @param string memberId l'id du membre
+   * @param string memberId l'id du membre sur la base de donnée
    * @returns une liste de couleur
    */
   const colorOfMember= async (memberId) => {
     const res = await db.ColorsInventories.findAll({
-      where: { MemberId: memberId },
+      where: { memberId: memberId },
       include: [db.Members, db.ColorRoles]
     });
 
@@ -123,13 +123,12 @@ const { logger } = require('../../logger');
 
   /**
    * Indique si un membre possede une couleur ou non
-   * @param string memberId l'id du membre en base de donnée 
+   * @param string userDB un membre ans la base de donnée
    * @param string label le label de la couleur
-   * @param string guildId l'id de guild
    * @return true s'il la possede
    */
-  const memberHaveColor = async(memberId, label, guildId) => {
-    const colors = await colorOfMember(memberId);
+  const memberHaveColor = async(userDB, label) => {
+    const colors = await colorOfMember(userDB.id);
     for (const color of colors) {
       if (color.label === label && color.guildId === guildId) {
         return true;
