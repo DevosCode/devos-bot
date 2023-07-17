@@ -4,7 +4,6 @@ const { updateChannelNameWithCount } = require("../../utils/event");
 const { logger } = require('../../utils/logger');
 
 const { GuildMember } = require('discord.js');
-// const canvafy = require("canvafy");
 
 /**
  * 

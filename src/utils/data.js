@@ -6,6 +6,8 @@ module.exports = {
         "GENERAL_CHANNEL",
         "WELCOME_CHANNEL",
         "TICKET_BTN_CHANNEL",
+        "CONTEST_CHANNEL",
+        "CONTEST_NAME",
     ],
     multiRolesKeys : [
         "BOOSTER_ROLE",

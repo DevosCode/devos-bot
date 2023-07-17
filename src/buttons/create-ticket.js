@@ -45,7 +45,7 @@ module.exports = {
  
     const ticket_message = await ticket.send({
       content: `${user.toString()}, Voici votre ticket.${mentions}`,
-      embeds: [embed ],
+      embeds: [embed],
       components: [
         new ActionRowBuilder().addComponents(
           new ButtonBuilder()

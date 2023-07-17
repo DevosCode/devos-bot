@@ -68,10 +68,10 @@ const getSetting = async (key, guildId) => {
     let setting;
     try {
         if (guildId) {
-            setting = await db.GuildSettings.findOne({ where: { id: member.id, guildId: guildId } });
+            setting = await db.GuildSettings.findOne({ where: {label: key , guildId: guildId } });
         }
     } catch (err) {
-        logger.error(`Erreur lors de la la recherche de la key:: ${key}, guild id: ${guildId}, erreur: ${err}`);
+        logger.error(`Erreur lors de la la recherche de la key: ${key}, guild id: ${guildId}, erreur: ${err}`);
     }
     return setting;
 }
