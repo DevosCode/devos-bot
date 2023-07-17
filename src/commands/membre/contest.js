@@ -62,7 +62,7 @@ module.exports = {
       
       if (!thread) {
         thread = await contest_channel.threads.create({
-          name: contestName.dataValues.value + ` - ` + interaction.member.user.username,
+          name: interaction.member.user.username + ` - ` + contestName.dataValues.value  ,
           autoArchiveDuration: 4320, // 3 jours
           reason: `Soumission d\'un contest par ${interaction.member.user.username}`,
           message: `Voici la proposition de ${interaction.member.toString()} pour le contest: ${contestName.dataValues.value}.`,
