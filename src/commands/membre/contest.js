@@ -52,7 +52,7 @@ module.exports = {
         return error(interaction, 'Le parametre CONTEST_NAME n\'a pas été configuré.');
       }
       const contest_channel = interaction.guild.channels.cache.get(contestChannel.dataValues.value) || await interaction.guild.channels.fetch(contestChannel.dataValues.value).catch(() => null);
-      let thread = await contest_channel.threads.cache.find(x => x.name == contestName.dataValues.value + ` - ` + interaction.member.user.username); 
+      let thread = await contest_channel.threads.cache.find(x => x.name ==interaction.member.user.username + ` - ` + contestName.dataValues.value); 
 
       embed = new EmbedBuilder()
         .setColor(client.config.colors.main)
