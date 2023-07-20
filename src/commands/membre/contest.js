@@ -14,7 +14,7 @@ module.exports = {
         .setDescription('Soumettre votre travail pour le contest.')
         .addAttachmentOption(option =>
           option
-            .setName('File')
+            .setName('ZipFile')
             .setDescription('Un fichier zip contenant l\'ensemble de votre composition.')
             .setRequired(false)
         )
@@ -48,7 +48,7 @@ module.exports = {
       await editGuildSetting("CONTEST_NAME", name, interaction.member.guild.id);
       return success(interaction, `J'annonce le début du contest "${name}"!`);
     } else if (contest_type == "submit") {
-      const zipFile = interaction.options.getAttachment('File');
+      const zipFile = interaction.options.getAttachment('ZipFile');
       const githubLink = interaction.options.getString('Link');
       if (!zipFile && !githubLink) {
         return error(interaction, 'Vous devez renseigner une des 2 méthodes de rendu.');
