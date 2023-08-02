@@ -17,14 +17,14 @@ module.exports = {
    * @param {CommandInteraction} options.interaction - L'interaction de commande
    */
   async run({ client, interaction }) {
-    const member = interaction.options.getMember('membre') || interaction.member;
+    const member = await interaction.options.getMember('membre') || interaction.member;
 
     if (!member) return error(interaction, 'Je ne trouve pas ce membre sur le serveur.');
     if (member.user.bot) return error(interaction, 'Les bots n\'ont pas de crédits.');
 
     const userDB = await client.db.Members.findOne({
       where: {
-        id: member.id
+        member_id: member.id
       }
     });
 

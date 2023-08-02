@@ -12,6 +12,12 @@ module.exports = {
       subcommand
         .setName('submit')
         .setDescription('Soumettre votre travail pour le contest.')
+        .addStringOption(option =>
+          option
+            .setName('language')
+            .setDescription('Le langage que vous avez utilisé.')
+            .setRequired(true)
+        )
         .addAttachmentOption(option =>
           option
             .setName('zipfile')
@@ -50,8 +56,9 @@ module.exports = {
     } else if (contest_type == "submit") {
       const zipFile = interaction.options.getAttachment('zipfile');
       const githubLink = interaction.options.getString('link');
+      const langage = interaction.options.getString('language');
       if (!zipFile && !githubLink) {
-        return error(interaction, 'Vous devez renseigner une des 2 méthodes de rendu.');
+        return error(interaction, 'Vous devez renseigner zipfile ou link.');
       }
       const contestChannel = await getSetting("CONTEST_CHANNEL", interaction.guild.id)
       const contestName = await getSetting("CONTEST_NAME", interaction.guild.id)
@@ -75,7 +82,7 @@ module.exports = {
           name: interaction.member.user.username + ` - ` + contestName.dataValues.value,
           autoArchiveDuration: 4320, // 3 jours
           reason: `Soumission d\'un contest par ${interaction.member.user.username}`,
-          message: `Voici la proposition de ${interaction.member.toString()} pour le contest: ${contestName.dataValues.value}.`,
+          message: `Voici la proposition de ${interaction.member.toString()} pour le contest: ${contestName.dataValues.value}.\nIl a utilisé le langage "${langage}".`,
         });
         if (zipFile) {
           await thread.send({
@@ -93,16 +100,16 @@ module.exports = {
       } else {
         if (zipFile) {
           await thread.send({
-            content: "Une nouvelle soumission de @everyone.",
+            content: `Une nouvelle soumission de @everyone.\nIl a utilisé le langage "${langage}".`,
             files: [{
               attachment: zipFile.attachment,
-              name: `Contest de ${interaction.member.user.username} - ${zipFile.name}`
+              name: `Contest de ${interaction.member.user.username} - ${zipFile.name}.`
             }]
           })
         }
         if (githubLink) {
           thread.send({
-            content: githubLink
+            content: `${githubLink} .Il a utilisé le langage "${langage}".`
           });
         }
       }

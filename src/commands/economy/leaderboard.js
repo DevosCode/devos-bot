@@ -24,13 +24,14 @@ module.exports = {
   async run({ client, interaction }) {
     const leadeboard_type = interaction.options.getSubcommand();
     let usersDB, embed;
+    let count = 0;
     if (leadeboard_type == 'level') {
       usersDB = await client.db.Members.findAll({
         where: {
-          guildId : interaction.member.guild.id,
+          guildId: interaction.member.guild.id,
         },
         order: [['experience', 'DESC']],
-        limit: 10
+        limit: 15
       });
 
       embed = new EmbedBuilder()
@@ -40,8 +41,15 @@ module.exports = {
         .setFooter({ iconURL: client.user.displayAvatarURL(), text: client.config.footer });
 
       await usersDB.map(async userDB => {
-        const member = await interaction.guild.members.fetch(userDB.member_id);
-        embed.addFields({ name: `${member.user.username}`, value: `Niveau : ${userDB.level}, Experience : ${userDB.experience}` });
+        try {
+          if (count < 10) {
+            const member = await interaction.guild.members.fetch(userDB.member_id);
+            embed.addFields({ name: `${member.user.username}`, value: `Niveau : ${userDB.level}, Experience : ${userDB.experience}` });
+            count += 1;
+          }
+        } catch (error) {
+          client.log.warn(`${userDB.member_id} n'a pas été trouvé.`)
+        }
       });
 
     }
@@ -49,10 +57,10 @@ module.exports = {
     if (leadeboard_type == 'credit') {
       usersDB = await client.db.Members.findAll({
         where: {
-          guildId : interaction.member.guild.id,
+          guildId: interaction.member.guild.id,
         },
         order: [['credits', 'DESC']],
-        limit: 10
+        limit: 15
       });
 
       embed = new EmbedBuilder()
@@ -61,8 +69,15 @@ module.exports = {
         .setTitle('Crédits Leaderboard')
         .setFooter({ iconURL: client.user.displayAvatarURL(), text: client.config.footer });
       await usersDB.map(async userDB => {
-        const member = await interaction.guild.members.fetch(userDB.member_id);
-        embed.addFields({ name: `${member.user.username}`, value: `Crédits : ${userDB.credits}` });
+        try {
+          if (count < 10) {
+            const member = await interaction.guild.members.fetch(userDB.member_id);
+            embed.addFields({ name: `${member.user.username}`, value: `Crédits : ${userDB.credits}` });
+            count += 1;
+          }
+        } catch (error) {
+          client.log.warn(`${userDB.member_id} n'a pas été trouvé.`)
+        }
       });
 
     }
