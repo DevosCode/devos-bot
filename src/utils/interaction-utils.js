@@ -1,6 +1,6 @@
 const { Collection, EmbedBuilder } = require('discord.js');
 module.exports = {
-    success : async function (interaction, args, { replied = true, ephemeral = false } = {}) {
+    success : async function (interaction, args, { replied = true, ephemeral = false , editReply = false} = {}) {
         const message = {
             embeds: [new EmbedBuilder()
             .setColor(interaction.client.config.colors.green)
@@ -12,6 +12,9 @@ module.exports = {
 
         if (replied === true) {
             return interaction.reply(message);
+        }
+        else if (editReply === true) {
+            return interaction.editReply(message);
         } else {
             return interaction.channel.send(message);
         }

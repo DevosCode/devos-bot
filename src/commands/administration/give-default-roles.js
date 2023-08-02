@@ -25,9 +25,10 @@ module.exports = {
     const welcome_roles = await getSettingGroup(member.guild.id, "WELCOME_ROLES"); 
     const members = await interaction.guild.members.fetch();
     if (welcome_roles.length >0) {
-      for (const member in members)
+      interaction.deferReply();
+      for (const member of members)
       { 
-        if (!member.user.bot){
+        if (!member[1].user.bot){
           try { 
            // si le membre les a deja ca ne fait rien
            await member[1].roles.add(welcome_roles, 'Ajout des autoroles.');
@@ -39,6 +40,6 @@ module.exports = {
     }else{
       return error(interaction, `Il n'y a pas de WELCOME_ROLES en base de donnée.`);
     }
-    await success(interaction, `J'ai mis à jour les rôles des membres.`);
+    await success(interaction, `J'ai mis à jour les rôles des membres.`, {editReply:true});
   }
 };
