@@ -17,7 +17,8 @@ module.exports = async (client) => {
   // await removeGlobalCommand(client); 
   const command = await guild.commands.set(client.slashs);
 
-  client.user.setPresence({ status: client.config.presence.type, activities: [{ name: client.config.presence.status }] });
+  // client.user.setPresence({ status: client.config.presence.type, activities: [{ name: client.config.presence.status }] });
+  client.user.setPresence({ status:  client.config.presence.type, activities: [ {name: `Il y a ${guild.memberCount} devos-membre`}] });
   client.log.info(`[${client.user.username}]: I'm ready.`);
 };
 

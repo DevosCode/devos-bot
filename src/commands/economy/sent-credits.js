@@ -23,21 +23,21 @@ module.exports = {
      * @param {CustomClient} options.client - Le client
      * @param {CommandInteraction} options.interaction - L'interaction de commande
      */
-    async run(interaction) {
-        const member = interaction.options.getUser('membre');
+    async run({interaction}) {
+        const member = interaction.options.getMember('membre');
         const credits = interaction.options.getInteger('credits');
 
         if (!member) return error(interaction, "Je ne trouve pas ce membre sur le serveur.");
         if (member.bot) return error(interaction, "Vous ne pouvez pas envoyer des crédits à un bot.");
         if (credits < 0) return error(interaction, "Vous ne pouvez pas envoyer des crédits négatifs à un membre.");
 
-        let sender = (await findOrCreateMember(member)).member;
+        let sender = (await findOrCreateMember(interaction.member)).member;
         if (sender.credits<credits) return error(interaction, "Vous n'avez pas assez de crédits.");
+        let receiver = (await findOrCreateMember(member, interaction.guild.id)).member;
         
-        let receiver = (await findOrCreateMember(member)).member;
 
         sender.credits = sender.credits-credits;
-        receiver.credits = receiver.credits-credits;
+        receiver.credits = receiver.credits+credits;
 
         await sender.save();
         await receiver.save();

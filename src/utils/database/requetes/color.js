@@ -130,7 +130,7 @@ const { logger } = require('../../logger');
   const memberHaveColor = async(userDB, label) => {
     const colors = await colorOfMember(userDB.id);
     for (const color of colors) {
-      if (color.label === label && color.guildId === guildId) {
+      if (color.label === label && color.guildId === userDB.guildId) {
         return true;
       }
     }
