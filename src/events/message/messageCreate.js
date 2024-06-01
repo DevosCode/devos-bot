@@ -1,4 +1,7 @@
 const { findOrCreateMember } = require("./../../utils/database/requetes/members");
+const MaxMessage = 3;
+const MaxTemps = 3000;
+let spamCache = {};
 
 module.exports = async (client, message) => {  
   if (!message.author.bot) { 
@@ -26,6 +29,30 @@ module.exports = async (client, message) => {
     }
 
     await userDB.save();
+    // PERMET DE SUPPRIMER LES MESSAGES EN CAS DE SPAM DE LIEN DUN HACKEUR MAL INTENTIONNER QUI POURRAIT NUIRE AU SERVEUR ET DONC NOUS EMBETER
+    const hasLink = message.content.match(/(http|https):\/\/[^\s]+/g);
+    if (!hasLink) return;
+    const userId = message.author.id;
+    const channelId = message.channel.id;
+    if (!spamCache[userId]) {
+      spamCache[userId] = {
+        count: 0,
+        lastMessageTime: 0,
+        messagse: [],
+        messageId: [],
+      };
+    }
+    spamCache[userId].count++;
+    spamCache[userId].lastMessageTime = Date.now();
+    spamCache[userId].messagse.push(message);
+    spamCache[userId].messageId.push(message.id);
+    if (spamCache[userId].count >= MaxMessage) {
+      const isSpamWithinTimeframe = Date.now() - spamCache[userId].lastMessageTime <= MaxTemps;
+      if (isSpamWithinTimeframe) {
+        message.member.ban({ reason: 'Spam hack link' , deleteMessageSeconds: 60 * 60});
+        client.channels.cache.get('1014796618534494219').send(`ALERTE SPAM : <@${userId}> dans <#${channelId}> MESSAGE: \`${message.content}\``);  
+        delete spamCache[userId];
+      }}
   }
 
   if (message.author.id == client.config.disboard_id) {
