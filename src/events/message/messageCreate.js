@@ -50,7 +50,7 @@ module.exports = async (client, message) => {
       const isSpamWithinTimeframe = Date.now() - spamCache[userId].lastMessageTime <= MaxTemps;
       if (isSpamWithinTimeframe) {
         message.member.ban({ reason: 'Spam hack link' , deleteMessageSeconds: 60 * 60});
-        client.channels.cache.get('1014796618534494219').send(`ALERTE SPAM : <@${userId}> dans <#${channelId}> MESSAGE: \`${message.content}\``);  
+        client.channels.cache.get('1014796618534494219').send(`@everyone ALERTE SPAM : <@${userId}> dans <#${channelId}> MESSAGE: \`${message.content}\``);  
         delete spamCache[userId];
       }}
   }
