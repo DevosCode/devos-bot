@@ -29,44 +29,48 @@ module.exports = async (client, message) => {
     }
 
     await userDB.save();
+
+    if (message.author.id == client.config.disboard_id) {
+      if (message.embeds[0].color == 2406327) {
+        const member = message.guild.members.cache.get(message.embeds[0].description.split(' ')[0].replace('<@', '').replace('>', ''));
+
+        if (!member) return;
+
+        let userDB = (await findOrCreateMember(member)).member; 
+        const credits_number = member.roles.cache.has(client.config.booster_role) ? 1 : 0.5;
+
+        userDB.credits = userDB.credits + credits_number;
+        await userDB.save(); 
+        message.channel.send(`Merci ${member.toString()} d'avoir bump le serveur. Voici \`${credits_number}\` credit en récompense.`);
+      }
+    }
+
+  
     // PERMET DE SUPPRIMER LES MESSAGES EN CAS DE SPAM DE LIEN DUN HACKEUR MAL INTENTIONNER QUI POURRAIT NUIRE AU SERVEUR ET DONC NOUS EMBETER
     const hasLink = message.content.match(/(http|https):\/\/[^\s]+/g);
-    if (!hasLink) return;
-    const userId = message.author.id;
-    const channelId = message.channel.id;
-    if (!spamCache[userId]) {
-      spamCache[userId] = {
-        count: 0,
-        lastMessageTime: 0,
-        messagse: [],
-        messageId: [],
-      };
-    }
-    spamCache[userId].count++;
-    spamCache[userId].lastMessageTime = Date.now();
-    spamCache[userId].messagse.push(message);
-    spamCache[userId].messageId.push(message.id);
-    if (spamCache[userId].count >= MaxMessage) {
-      const isSpamWithinTimeframe = Date.now() - spamCache[userId].lastMessageTime <= MaxTemps;
-      if (isSpamWithinTimeframe) {
-        message.member.ban({ reason: 'Spam hack link' , deleteMessageSeconds: 60 * 60});
-        client.channels.cache.get('1014796618534494219').send(`@everyone ALERTE SPAM : <@${userId}> dans <#${channelId}> MESSAGE: \`${message.content}\``);  
-        delete spamCache[userId];
-      }}
-  }
-
-  if (message.author.id == client.config.disboard_id) {
-    if (message.embeds[0].color == 2406327) {
-      const member = message.guild.members.cache.get(message.embeds[0].description.split(' ')[0].replace('<@', '').replace('>', ''));
-
-      if (!member) return;
-
-      let userDB = (await findOrCreateMember(member)).member; 
-      const credits_number = member.roles.cache.has(client.config.booster_role) ? 1 : 0.5;
-
-      userDB.credits = userDB.credits + credits_number;
-      await userDB.save(); 
-      message.channel.send(`Merci ${member.toString()} d'avoir bump le serveur. Voici \`${credits_number}\` credit en récompense.`);
+    if (!!hasLink == true && false) { // bloquer par le && flase jusqu'a ce qu'elle soit fixer
+      const userId = message.author.id;
+      const channelId = message.channel.id;
+      if (!spamCache[userId]) {
+        spamCache[userId] = {
+          count: 0,
+          lastMessageTime: 0,
+          messagse: [],
+          messageId: [],
+        };
+      }
+      spamCache[userId].count++;
+      spamCache[userId].lastMessageTime = Date.now();
+      spamCache[userId].messagse.push(message);
+      spamCache[userId].messageId.push(message.id);
+      if (spamCache[userId].count >= MaxMessage) {
+        const isSpamWithinTimeframe = Date.now() - spamCache[userId].lastMessageTime <= MaxTemps;
+        if (isSpamWithinTimeframe) {
+          message.member.ban({ reason: 'Spam hack link' , deleteMessageSeconds: 60 * 60});
+          client.channels.cache.get('1014796618534494219').send(`@everyone ALERTE SPAM : <@${userId}> dans <#${channelId}> MESSAGE: \`${message.content}\``);  
+          delete spamCache[userId];
+        }
+      }
     }
   }
 };
