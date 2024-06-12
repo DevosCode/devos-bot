@@ -1,13 +1,14 @@
-const { SlashCommandBuilder,PermissionsBitField,  EmbedBuilder, ChannelType } = require('discord.js');
-const moment = require('moment');
+const { SlashCommandBuilder,PermissionsBitField, EmbedBuilder, ChannelType } = require('discord.js');
+const dayjs = require('dayjs');
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('serverinfo')
         .setDescription('Affiche des informations sur le serveur'),
     async run({ client, interaction }) {
-        var serverIcon = interaction.guild.iconURL({ dynamic: true });
-        let embedserverinfo = new EmbedBuilder()
+        const serverIcon = interaction.guild.iconURL({ dynamic: true });
+
+        const embedserverinfo = new EmbedBuilder()
             .setColor(client.config.colors.main)
             .setAuthor({ name: `${interaction.guild.name}`, iconURL: serverIcon })
             .addFields({
@@ -16,7 +17,7 @@ module.exports = {
                     `
                     Nom: ${interaction.guild.name}
                     Propriétaire: <@${interaction.guild.ownerId}>
-                    Date de création: ${moment(interaction.guild.createdAt).format("DD/MM/YYYY")} (<t:${parseInt(interaction.guild.createdTimestamp / 1000)}:R>)
+                    Date de création: ${dayjs(interaction.guild.createdAt).format("DD/MM/YYYY")} (<t:${parseInt(interaction.guild.createdTimestamp / 1000)}:R>)
                     Boost: ${interaction.guild.premiumSubscriptionCount ? interaction.guild.premiumSubscriptionCount : "❌"} (${interaction.guild.premiumTier ? "Level 0" : interaction.guild.premiumTier})
                     Langue: :flag_fr: Français
                     `,
