@@ -1,0 +1,40 @@
+version: '3' # version de la syntaxe de Docker Compose
+
+services:
+  db: # service pour la base de données MySQL
+    image: mysql # utilise l'image officielle MySQL
+    container_name: db # nom du conteneur
+    environment: # variables d'environnement pour la configuration de MySQL
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: devos_bot
+      # MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    ports:
+      - "6033:3306" # expose le port 3306 du conteneur sur le port 6033 de l'hôte
+    volumes:
+      - dbdata:/var/lib/mysql # monte un volume nommé "dbdata" pour stocker les données de la base de données persistantes
+
+  phpmyadmin: # service pour l'interface de gestion de la base de données (phpMyAdmin)
+    image: phpmyadmin/phpmyadmin # utilise l'image officielle de phpMyAdmin
+    container_name: pma # nom du conteneur
+    links:
+      - db # établit un lien vers le service de la base de données
+    environment: # variables d'environnement pour la configuration de phpMyAdmin
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always # redémarre automatiquement en cas d'erreur
+    ports:
+      - 8081:80 # expose le port 80 du conteneur sur le port 8081 de l'hôte
+
+  image: # service pour construire l'image Docker pour le bot
+    build: docker # construit l'image Docker à partir du Dockerfile dans le répertoire courant
+    container_name: devos-bot # nom du conteneur
+    tty: true # active le terminal pour le conteneur
+    depends_on:
+      - phpmyadmin # dépend du service phpMyAdmin pour l'accès à la base de données
+    volumes:
+      - ./:/home/app
+
+volumes:
+  dbdata: # définit le volume nommé "dbdata" pour stocker les données de la base de données persistantes
