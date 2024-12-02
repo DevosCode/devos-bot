@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField } = require('discord.js');
 const CustomClient = require("../../structure/Client");
 const { getSetting, editGuildSetting } = require("../../utils/database/requetes/settings_guild");
 const { error, success } = require("./../../utils/interaction-utils");
@@ -50,6 +50,9 @@ module.exports = {
   async run({ client, interaction }) {
     const contest_type = interaction.options.getSubcommand();
     if (contest_type == "new") {
+       if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageGuild)) {
+        return error(interaction, "Vous n'avez pas la permission d'utiliser cette commande.");
+      }
       const name = interaction.options.getString('name');
       await editGuildSetting("CONTEST_NAME", name, interaction.member.guild.id);
       return success(interaction, `J'annonce le début du contest "${name}"!`);
