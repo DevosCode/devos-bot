@@ -61,7 +61,7 @@ module.exports = {
       const githubLink = interaction.options.getString('link');
       const langage = interaction.options.getString('language');
       if (!zipFile && !githubLink) {
-        return error(interaction, 'Vous devez renseigner zipfile ou link.');
+        return error(interaction, 'Vous devez renseigner zipfile ou link.', {ephemeral: true});
       }
       const contestChannel = await getSetting("CONTEST_CHANNEL", interaction.guild.id)
       const contestName = await getSetting("CONTEST_NAME", interaction.guild.id)
@@ -116,7 +116,7 @@ module.exports = {
           });
         }
       }
-      return success(interaction, "Votre proposition a bien été pris en compte!");
+      return success(interaction, "Votre proposition a bien été pris en compte!", {ephemeral: true});
     } else {
       return error(interaction, 'Je ne connais pas cette sub commande.');
     }
